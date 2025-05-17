@@ -1,0 +1,32 @@
+.error-text {
+    color: red;
+}
+
+/*.shape-switch{*/
+/*    display: flex;*/
+/*}*/
+
+
+
+
+
+
+.button {
+    background-color: #55ee15;
+}
+
+.parent {
+    border: 1px solid black;
+    margin: 1rem;
+    padding: 2rem 2rem;
+    text-align: center;
+}
+.child {
+    border: 1px solid red;
+    display: inline-block;
+    text-align: left;
+    padding: 1rem 1rem;
+    vertical-align: middle;
+}
+
+

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Art</title>
+    <link rel="stylesheet" href="css/art.css">
+    <link href="art.js">
+    <script src="art.js"></script>
+</head>
+<body>
+<div class="parent">
+    <div class="child">
+        <canvas style="border: solid 1px black" id="canvas" height="400" width="400"></canvas>
+    </div>
+
+    <div id="control-panel" class="child">
+        <div class="control">
+            <label for="pixel-width">Pixel width</label>
+            <input id="pixel-width" type="number" value/>
+            <button class="button" onclick="Width()">Apply</button>
+            <p id="error-width" class="error-text"></p>
+        </div>
+        <div class="control">
+            <label for="pixel-height">Pixel height</label>
+            <input id="pixel-height" type="number"/>
+            <button class="button" onclick="Height()">Apply</button>
+            <p id="error-height"></p>
+        </div>
+        <div class="control">
+            <label for="pencil-color">Pixel color</label>
+            <select id="pencil-color" type="text">
+                <option value="black">Black</option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="yellow">Yellow</option>
+            </select>
+            <button class="button" onclick="setColor()">Apply</button>
+        </div>
+        <div class="control">
+            <div>
+                <input id="pencil-circle" name="pencil-shape" type="radio" value="circle"/>
+                <label class="shape-switch" for="pencil-circle">Circle</label>
+            </div>
+            <div>
+                <input id="pencil-square" type="radio" name="pencil-shape" value="square"/>
+                <label class="shape-switch" for="pencil-square">Square</label>
+            </div>
+            <button class="button">Apply</button>
+        </div>
+        <div class="control">
+            <button class="button" onclick="Clear()">Clear</button>
+        </div>
+        <div class="control">
+            <button class="button" onclick="Save()">Save</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+    let canvas = document.getElementById("canvas")
+    let ctx = canvas.getContext("2d");
+    let isMousePress = false;
+    const $canvas = $("#canvas");
+
+    class CanvasState {
+
+
+        constructor(color, shape, height, width, pencilHeight, pencilWidth) {
+            this.color = color
+            this.shape = shape
+            this.height = height
+            this.width = width
+            this.pencilHeight = pencilHeight
+            this.pencilWidth = pencilWidth
+        }
+
+    }
+
+
+    let canvasState = new CanvasState("black", "square", 400, 400, 10, 10)
+
+    function Save() {
+        let image = canvas.toDataURL("image/jpeg");
+        let link = document.createElement("a");
+        link.href = image
+        link.download = "art-game-image";
+        link.click();
+
+    }
+
+    function Clear() {
+        ctx.clearRect(0, 0, canvasState.width, canvasState.height)
+    }
+
+    function Shape() {
+        canvasState.shape = canvasState.shape === 'square' ? 'circle' : 'square';
+    }
+
+    function setColor() {
+        const color = document.querySelector('#pencil-color');
+        canvasState.color = color.value;
+    }
+
+    function Width() {
+        let testWidth = document.getElementById("pixel-width").value;
+        if (testWidth < 1) {
+            $("#error-width").text("The number can only be greater than 0.");
+        } else {
+            canvasState.pencilWidth = document.getElementById("pixel-width").value;
+        }
+    }
+
+    function Height() {
+        let testHeight = document.getElementById("pixel-height").value;
+        if (testHeight < 1) {
+            $("#error-height").text("The number can only be greater than 0.");
+        } else {
+            canvasState.pencilHeight = document.getElementById("pixel-height").value;
+        }
+    }
+
+    $canvas.mousedown(function () {
+        isMousePress = true
+    })
+
+    $canvas.mouseup(function () {
+        isMousePress = false
+
+    })
+
+    $canvas.mousemove(function (pos) {
+        if (isMousePress) {
+            const x = pos.offsetX;
+            const y = pos.offsetY;
+            if (canvasState.shape === "square") {
+                ctx.fillStyle = canvasState.color;
+                ctx.fillRect(x, y, canvasState.pencilWidth, canvasState.pencilHeight);
+            } else {
+                ctx.strokeStyle = color;
+                ctx.arc(x, y, canvasState.pencilWidth / 2, 0, Math.PI * 2, false);
+                ctx.stroke();
+
+            }
+        }
+    })
+
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i
+        .test(navigator.userAgent)) {
+        const link = document.createElement("a")
+        link.href = "https://shubnikov.me/error-page.html"
+        link.click()
+
+
+    }
+
+</script>
+</body>
+</html>

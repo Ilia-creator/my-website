@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <title>Hamster kombat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        #save-button, #new-game-button {
+            position: fixed;
+            bottom: 20px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        #save-button {
+            left: 20px;
+            background: linear-gradient(90deg, #4CAF50, #2E7D32);
+            color: white;
+        }
+
+        #new-game-button {
+            left: 160px;
+            background: linear-gradient(90deg, #f44336, #d32f2f);
+            color: white;
+        }
+
+        #save-button:hover {
+            background: linear-gradient(90deg, #66bb6a, #388e3c);
+            transform: scale(1.05);
+        }
+
+        #new-game-button:hover {
+            background: linear-gradient(90deg, #ef5350, #c62828);
+            transform: scale(1.05);
+        }
+
+        #save-button:active, #new-game-button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<link rel="stylesheet" href="css/clicker.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<div id="header">
+<h3 id="header-text">Hamster clicker</h3>
+</div>
+<div id="show-score" class="text">
+    <p id="score-text" class="info-text">Moneys: 0</p>
+    <p id="show-money-for-click" class="info-text">+1 moneys for click</p>
+</div>
+
+<div id="image-progress">
+    <div id="progress-bar"></div>
+</div>
+
+<div id="main" class="text">
+    <img src="images/hamster1.jpg" alt="Hamster" id="hamster-img">
+    <div id="upgrades" class="text">
+        <button id="click+1" class="btn" onclick="AddMoneyForClickCustom(10, 1)">+1 money for click(10 moneys)</button>
+        <button id="autoclicker" class="btn" onclick="UpgradeAutoclickerCustom(100, 1)">+1 money every second autoclicker(100 moneys)</button>
+        <button id="click+10" class="btn" onclick="AddMoneyForClickCustom(100, 10)">+10 moneys for click(100 moneys)</button>
+        <button id="shop-button" class="btn" onclick="openShop()">Shop</button>
+        <button id="code" class="btn" onclick="Code()">Code</button>
+        <button id="save-button" onclick="saveGame()">Save Game</button>
+        <button id="new-game-button" onclick="newGame()">New Game</button>
+        <button id="music-button">Pause Music</button>
+        <button id="help-button" class="btn" onclick="Help()">?</button>
+        <audio id="background-music" loop autoplay>
+            <source src="music/hamsterClicker.mp3" type="audio/mpeg">
+        </audio>
+        <p>I am working on this game now(this is beta version)</p>
+    </div>
+    <div id="shop-modal">
+        <div id="shop-content">
+            <h3>Shop</h3>
+            <button class="shop-item" onclick="UpgradeAutoclickerCustom(1000, 10)">+10 money every second autoclicker (1000 moneys)</button>
+            <button class="shop-item" onclick="AddMoneyForClickCustom(1000, 100)">+100 money for click (1000 moneys)</button>
+            <button class="shop-item" onclick="UpgradeAutoclickerCustom(10000, 100)">+100 money every second autoclicker (10000 moneys)</button>
+            <button class="shop-item" onclick="AddMoneyForClickCustom(10000, 1000)">+1000 money for click (10000 moneys)</button>
+            <button class="shop-item" onclick="UpgradeAutoclickerCustom(100000, 1000)">+1000 money every second autoclicker (100000 moneys)</button>
+            <button class="shop-item" onclick="AddMoneyForClickCustom(100000, 10000)">+10000 money for click (100000 moneys)</button>
+            <button class="shop-item" onclick="UpgradeAutoclickerCustom(10000, 100)">+10000 money every second autoclicker (1000000 moneys)</button>
+            <button class="shop-item" onclick="AddMoneyForClickCustom(1000000, 10000)">+10000 money for click (1000000 moneys)</button>
+            <button class="shop-item" onclick="UpgradeAutoclickerCustom(100000, 1000)">+1000 money every second autoclicker (100000 moneys)</button>
+            <button class="shop-item" onclick="PlayerAddMoneyForClick()">Click to do your money for click upgrader</button>
+            <button class="shop-item" onclick="PlayerAutoclickerUpgrade()">Click to do your autoclicker upgrader</button>
+
+            <button id="close-shop" onclick="closeShop()">Close</button>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    let score = 0
+    let moneyForClick = 1
+    let autoclicker = 0
+    const $hamster = $('#hamster-img')
+    const scoreText = document.getElementById("score-text");
+    const clickPowerText = document.getElementById("click-power");
+
+
+    function PlayerAutoclickerUpgrade() {
+        let amount = parseInt(prompt("How much autoclicker to add?"), 10);
+        if (isNaN(amount) || amount <= 0) return;
+
+        let price = amount * 100
+
+        let name = prompt("Enter a name for your button:");
+        if (!name) return;
+
+        let button = document.createElement("button");
+        button.textContent = `${name} (+${amount} autoclicker for ${price} moneys)`;
+        button.className = "shop-item";
+        button.onclick = () => UpgradeAutoclickerCustom(price, amount);
+
+        document.getElementById("shop-content").appendChild(button);
+    }
+
+    function PlayerAddMoneyForClick() {
+        let moneyForClick = parseInt(prompt("Enter the number of money for click:"));
+        if (isNaN(moneyForClick) || moneyForClick <= 0) {
+            alert("Invalid input! Please enter a valid number.");
+            return;
+        }
+
+        let price = moneyForClick * 10;
+        let nameButton = prompt("Enter a name for the button:");
+        if (!nameButton) {
+            alert("Button name cannot be empty!");
+            return;
+        }
+
+        let button = document.createElement("button");
+        button.textContent = `${nameButton} (+${moneyForClick} money for click  for ${price} moneys)`;
+        button.className = "shop-item"; // Добавляем стили кнопки, чтобы она выглядела как остальные в магазине
+        button.onclick = () => AddMoneyForClickCustom(price, moneyForClick); // Используем стрелочную функцию
+
+        let shop = document.getElementById("shop-content");
+        if (shop) {
+            shop.appendChild(button);
+        } else {
+            console.error("Shop content not found!");
+        }
+    }
+
+    function AddMoneyForClickCustom(price, moneyUp) {
+        if (score >= price) {
+            moneyForClick += moneyUp; // Добавляем к текущему moneyForClick
+            score -= price;
+            updateUI();
+        } else {
+            alert("Not enough money!");
+        }
+    }
+
+
+    $hamster.click(function () {
+        score = score + moneyForClick
+        $("#score-text").text("Moneys: " + score)
+        updateProgressBar()
+
+    })
+
+    function Help() {
+            window.alert("Tap the hamster and you have a money and upgrade your clicker!")
+        }
+
+    function UpgradeAutoclickerCustom(price, autoklickerUp) {
+            if (score >= price) {
+                autoclicker += autoklickerUp;
+                score -= price;
+                $("#score-text").text("Moneys: " + score);
+
+            }
+        }
+
+
+    function Autoclicker() {
+            score += autoclicker;
+            $("#score-text").text("Moneys: " + score);
+            updateProgressBar()
+        }
+
+
+    setInterval(Autoclicker, 1000);
+
+    const images = [
+            "images/hamster1.jpg",
+            "images/hamster2.jpg",
+            "images/hamster3.jpg",
+            "images/hamster4.png",
+            "images/hamster5.png",
+            "images/hamster6.png",
+        ];
+
+    const codes = [
+            "Steve_Shuba",
+            "FREE_moneys",
+            "FREE_moneys_and_upgrades",
+            "NewYear25"
+
+        ]
+
+        let free_moneys = false
+        let free_moneys_and_upgrades = false
+        let steve_shuba = false
+        let newYear = false
+
+    function Code() {
+            let code = prompt("Enter code:");
+            for (let i = 0; i < codes.length; i++) {
+                if (code === codes[i]) {
+                    window.alert("You have entered the correct code!");
+
+                    if (code === "FREE_moneys" && free_moneys === false) {
+                        score += 1000;
+                        $("#score-text").text("Moneys: " + score);
+                        free_moneys = true;
+                    } else if (code === "FREE_moneys_and_upgrades" && free_moneys_and_upgrades === false) {
+                        score += 1000;
+                        $("#score-text").text("Moneys: " + score);
+                        free_moneys_and_upgrades = true;
+                    } else if (code === "Steve_Shuba" && steve_shuba === false) {
+                        score += 100000;
+                        $("#score-text").text("Moneys: " + score);
+                        steve_shuba = true;
+                    } else if (code === "NewYear25" && newYear === false) {
+                        autoclicker += 1000
+                        newYear = true;
+                    }
+                }
+            }
+        }
+
+
+    function changeImage(currentImageIndex) {
+            const imgElement = document.getElementById('hamster-img');
+            if (imgElement) {
+                currentImageIndex = currentImageIndex % images.length;
+                imgElement.src = images[currentImageIndex];
+                console.log("Image changed:", images[currentImageIndex]);
+            }
+        }
+
+    function Test() {
+            if (1000 <= score) {
+                changeImage(1);
+            }
+
+            if (100000 <= score) {
+                changeImage(2);
+            }
+
+            if (1000000 <= score) {
+                changeImage(3);
+            }
+
+            if (10000000 <= score) {
+                changeImage(4);
+            }
+
+            if (10000000 <= score) {
+                changeImage(5);
+            }
+
+            $("#show-score").text("Moneys: " + score);
+            $("#show-money-for-click").text("+" + moneyForClick + " moneys for click");
+        }
+
+
+    window.onload = function () {
+            setInterval(Autoclicker, 1000);
+            setInterval(Test, 1)
+            loadGame()
+            setInterval(AutoSave, 1);
+        }
+
+    $hamster.click(function (event) {
+
+            const coin = $('<div class="coin">🪙</div>');
+            $("body").append(coin);
+
+
+            coin.css({
+                position: 'absolute',
+                left: event.pageX + "px",
+                top: event.pageY + "px",
+                pointerEvents: 'none',
+                animation: 'coinFly 1s ease-out forwards',
+            });
+
+
+            setTimeout(() => coin.remove(), 1000);
+        });
+
+        const thresholds = [1000, 100000]; // Пороговые значения монет для смены изображений
+        let currentThreshold = thresholds[0]; // Текущий порог
+
+        function updateProgressBar() {
+            const progressBar = $("#progress-bar");
+
+            // Вычисляем процент заполнения
+            const progress = Math.min((score / currentThreshold) * 100, 100);
+            progressBar.css("width", progress + "%");
+
+            // Если достигли текущего порога, меняем картинку и обновляем порог
+            if (score >= currentThreshold) {
+                changeImage(thresholds.indexOf(currentThreshold) + 1); // Меняем картинку
+                const nextIndex = thresholds.indexOf(currentThreshold) + 1;
+                currentThreshold = thresholds[nextIndex] || currentThreshold + 100000; // Переход к следующему порогу или добавляем фиксированный шаг
+            }
+        }
+
+        function openShop() {
+            document.getElementById("shop-modal").style.display = "block"; // Показываем окно
+        }
+
+        function closeShop() {
+            document.getElementById("shop-modal").style.display = "none"; // Скрываем окно
+        }
+
+        const musicButton = document.getElementById("music-button");
+        const backgroundMusic = document.getElementById("background-music");
+
+        // Функция для управления музыкой
+        musicButton.addEventListener("click", () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play();
+                musicButton.textContent = "Pause Music";
+                musicButton.classList.remove("off");
+            } else {
+                backgroundMusic.pause();
+                musicButton.textContent = "Play Music";
+                musicButton.classList.add("off");
+            }
+        });
+
+
+        // Функция для обновления интерфейса
+        function updateUI() {
+            scoreText.textContent = `Moneys: ${score}`;
+            clickPowerText.textContent = `Money per click: ${moneyForClick}`;
+        }
+
+        // Функция для сохранения прогресса
+        function saveGame() {
+            const gameState = {
+                score: score,
+                moneyForClick: moneyForClick,
+                autoclicker: autoclicker
+            };
+            localStorage.setItem("hamsterClickerSave", JSON.stringify(gameState));
+        }
+
+
+    // Функция для загрузки прогресса
+        function loadGame() {
+            const savedData = localStorage.getItem("hamsterClickerSave");
+            if (savedData) {
+                const gameState = JSON.parse(savedData);
+                score = gameState.score || 0;
+                moneyForClick = gameState.moneyForClick || 1;
+                autoclicker = gameState.autoclicker || 0;
+
+                $("#score-text").text("Moneys: " + score);
+                $("#show-money-for-click").text("+" + moneyForClick + " moneys for click");
+                $("#show-autoclicker").text(autoclicker + " money per second");
+            }
+        }
+
+
+    // Функция для начала новой игры
+        function newGame() {
+            if (confirm("Are you sure you want to start a new game? This will erase your current progress.")) {
+                score = 0;
+                moneyForClick = 0;
+                autoclicker = 0;
+                localStorage.removeItem("hamsterClickerSave");
+                updateUI();
+                alert("New game started!");
+            }
+        }
+
+    
+
+</script>
+</html>

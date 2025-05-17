@@ -1,0 +1,118 @@
+html, body {
+    margin: 0;
+}
+
+#header {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 70px;
+    background-color: #ffefc8;
+}
+
+#menu {
+    display: flex;
+    background-color: black;
+}
+
+.menu-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 40px;
+
+}
+
+a {
+
+    color: #ffffff;
+    padding-top: 10px;
+
+    display: inline-block;
+
+}
+
+p{
+color: rgb(76, 255, 80);
+}
+body{
+background-color: #3290bf;
+
+}
+#topbar {
+
+
+    display: inline-block;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-size: 30px;
+
+}
+
+ .button{
+    color:white ;
+    background: #f5a742 ;
+    font-size: 24px;
+    padding: 15px 20px;
+    display: inline-block;
+    margin-left: 5%;
+}
+
+ .text {
+     font-family: "Arial Black";
+     text-align: center;
+     font-size: 15px;
+     padding-top: 10px;
+     padding-bottom: 10px;
+     color: #32bf57;
+     background-color: #3290bf;
+ }
+
+.menu-item a:hover{
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+@media (min-width: 1200px) {
+
+    
+}
+
+@media (min-width: 992px) {
+
+
+}
+
+@media (min-width: 768px) {
+    .text {
+        font-size: 20px;
+    }
+
+}
+
+@media (min-width: 480px) {
+
+    .text {
+        font-size: 30px;
+    }
+    .topbar-text {
+        font-size: 37px;
+    }
+}
+
+@media (min-width: 350px) {
+    .text {
+        font-size: 35px;
+    }
+
+    .topbar-text {
+        font-size: 42px;
+    }
+
+    .button {
+        font-size: 40px;
+    }
+
+}

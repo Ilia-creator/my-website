@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake</title>
+</head>
+<body>
+<canvas id="canvas" width="400" height="400"></canvas>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+  const canvas = document.getElementById("canvas")
+  let ctx = canvas.getContext("2d")
+
+  let width = canvas.width;
+  let height = canvas.height;
+
+  let blockSize = 10;
+  let widthInBlocks = width / blockSize;
+  let heightInBlocks = height / blockSize;
+
+  let score = 0;
+
+  let drawBorder = function () {
+      ctx.fillStyle = "gray";
+      ctx.fillRect(0, 0, width, blockSize);
+      ctx.fillRect(0, height - blockSize, width, blockSize);
+      ctx.fillRect(0, 0, blockSize, height);
+      ctx.fillRect(width - blockSize, 0, blockSize, height);
+  };
+
+  let drawScore = function () {
+      ctx.font = "20px Courier";
+      ctx.fillStyle = "Black";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
+      ctx.fillText("Score: " + score, blockSize, blockSize);
+  }
+
+  let gameOver = function () {
+
+  }
+
+</script>
+</body>
+</html>
