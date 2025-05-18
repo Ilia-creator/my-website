@@ -1,55 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="css/normolize.css">
-    <link rel="stylesheet" href="css/main.css">
-    <meta charset="UTF-8">
-    <title>Ilia personal page</title>
-</head>
-<body>
-<div id="header" class="text">Ilia personal page</div>
-<div id="menu" class="text">
-    <div id="football" class="menu-item">
-        <a href="football.html">Football</a>
-    </div>
-    <div id="swimming" class="menu-item">
-        <a href="swimming.html">Swimming</a>
-    </div>
-    <div id="programming" class="menu-item">
-        <a href="programming.html">Programming</a>
-    </div>
-    <div id="music" class="menu-item">
-       <a href="music.html">Music</a>
-    </div>
-    <div id="games" class="menu-item">
-        <a href="games.html">Games</a>
-    </div>
+	<head>
+		<link rel="stylesheet" href="css/normolize.css">
+		<link rel="stylesheet" href="css/main.css">
+		<meta charset="UTF-8">
+		<title>Ilia personal page</title>
+	</head>
+	<body>
+		<div id="header" class="text">Ilia personal page</div>
+		<div id="menu" class="text">
+			<div id="football" class="menu-item">
+				<a href="football.html">Football</a>
+			</div>
+			<div id="swimming" class="menu-item">
+				<a href="swimming.html">Swimming</a>
+			</div>
+			<div id="programming" class="menu-item">
+				<a href="programming.html">Programming</a>
+			</div>
+			<div id="music" class="menu-item">
+				<a href="music.html">Music</a>
+			</div>
+			<div id="games" class="menu-item">
+				<a href="games.html">Games</a>
+			</div>
 
-</div>
-<div id="content" class="text">
-        <div id = "topbar" >
-        <img src="images/Ilia.JPG">
-            <div class="topbar-text">
-            <p> Hello, my name is Ilia! Welcome to my site!</p>
-                <div/>
-        <div/>
-                <div id = "mainsection" class="text">
-                <p> I love programming, I usually write in python and I like it.</p>
-                <p> I also have a younger brother, Lev, and we play together.</p>
-                <p> I also play football and swimming.</p>
-                <p> I also have a youtube chanel.</p>
-                <a href="https://www.youtube.com/@iljashubnikov7312/community"> My youtube chanel(link)</a>
-                <p> Please subscribe! </p>
-                <p><button id="mainbutton" class="button" type="button" onclick= sayHello()>Say hello!</button></p>
-                </div>
-</div>
-</body>
-    <script>
-        function sayHello(){
-            var name = prompt("Hello, what is your name?")
-            if (name != null){
-                window.alert("Nice to meet you "+name+"! Thank you for visiting my site!")
-        }   }
+		</div>
+		<div id="content" class="text">
+			<div id="topbar">
+				<img src="images/Ilia.JPG" alt="avatar">
+				<div class="topbar-text">
+					<p> Hello, my name is Ilia! Welcome to my site!</p>
+				</div>
+			</div>
+			<div id="mainsection" class="text">
+				<p> I love programming, I usually write in python and I like it.</p>
+				<p> I also have a younger brother, Lev, and we play together.</p>
+				<p> I also play football and swimming.</p>
+				<p> I also have a youtube chanel.</p>
+				<a href="https://www.youtube.com/@iljashubnikov7312/community"> My youtube chanel(link)</a>
+				<p> Please subscribe! </p>
+				<p>
+					<button id="mainbutton" class="button" type="button" onclick=sayHello()>Say hello!</button>
+				</p>
+			</div>
+		</div>
+	</body>
+	<script>
+		function sayHello() {
+			const name = prompt("Hello, what is your name?");
+			if (name != null) {
+				window.alert("Nice to meet you " + name + "! Thank you for visiting my site!");
+			}
+		}
 
-    </script>
+	</script>
 </html>
