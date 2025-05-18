@@ -212,7 +212,8 @@
             "Steve_Shuba",
             "FREE_moneys",
             "FREE_moneys_and_upgrades",
-            "NewYear25"
+            "NewYear25",
+            "ILoveSpring"
 
         ]
 
@@ -220,33 +221,37 @@
         let free_moneys_and_upgrades = false
         let steve_shuba = false
         let newYear = false
+        let iLoveSpring = false
 
     function Code() {
-            let code = prompt("Enter code:");
-            for (let i = 0; i < codes.length; i++) {
-                if (code === codes[i]) {
-                    window.alert("You have entered the correct code!");
+        let code = prompt("Enter code:");
+        for (let i = 0; i < codes.length; i++) {
+            if (code === codes[i]) {
+                window.alert("You have entered the correct code!");
 
-                    if (code === "FREE_moneys" && free_moneys === false) {
-                        score += 1000;
-                        $("#score-text").text("Moneys: " + score);
-                        free_moneys = true;
-                    } else if (code === "FREE_moneys_and_upgrades" && free_moneys_and_upgrades === false) {
-                        score += 1000;
-                        $("#score-text").text("Moneys: " + score);
-                        free_moneys_and_upgrades = true;
-                    } else if (code === "Steve_Shuba" && steve_shuba === false) {
-                        score += 100000;
-                        $("#score-text").text("Moneys: " + score);
-                        steve_shuba = true;
-                    } else if (code === "NewYear25" && newYear === false) {
-                        autoclicker += 1000
-                        newYear = true;
+                if (code === "FREE_moneys" && free_moneys === false) {
+                    score += 1000;
+                    $("#score-text").text("Moneys: " + score);
+                    free_moneys = true;
+                } else if (code === "FREE_moneys_and_upgrades" && free_moneys_and_upgrades === false) {
+                    score += 1000;
+                    $("#score-text").text("Moneys: " + score);
+                    free_moneys_and_upgrades = true;
+                } else if (code === "Steve_Shuba" && steve_shuba === false) {
+                    score += 100000;
+                    $("#score-text").text("Moneys: " + score);
+                    steve_shuba = true;
+                } else if (code === "NewYear25" && newYear === false) {
+                    autoclicker += 1000
+                    newYear = true;}
+                else if (code === "ILoveSpring" && iLoveSpring === false) {
+                        autoclicker += 10000
+                        iLoveSpring = true;
                     }
                 }
             }
-        }
 
+    }
 
     function changeImage(currentImageIndex) {
             const imgElement = document.getElementById('hamster-img');
