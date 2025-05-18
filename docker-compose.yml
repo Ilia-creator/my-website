@@ -1,0 +1,9 @@
+name: ilia-website
+services:
+  nginx:
+    image: nginx
+    container_name: ilia-website
+    expose:
+      - 80
+    volumes:
+      - .:/usr/share/nginx/html:ro
