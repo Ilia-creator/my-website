@@ -1,10 +1,10 @@
 name: ilia-website
 services:
   nginx:
-    image: nginx
+    image: nginx:latest
     container_name: ilia-website
     restart: unless-stopped
     expose:
       - 80
     volumes:
-      - .:/usr/share/nginx/html:ro
+      - ./src:/usr/share/nginx/html:ro
