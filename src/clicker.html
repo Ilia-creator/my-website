@@ -103,6 +103,33 @@
             <button id="close-shop" onclick="closeShop()">Close</button>
         </div>
     </div>
+    <div id="admin-panel" style="
+  display: none;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f0f0f0;
+  color: #222;
+  border-radius: 12px;
+  padding: 20px 30px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.25);
+  z-index: 9999;
+  font-family: sans-serif;
+  text-align: center;
+  min-width: 280px;
+">
+        <h3 style="margin-top: 0;">🔧 Admin Panel</h3>
+
+        <label>Coins:<br><input type="number" id="admin-score" style="width: 100%; margin-bottom: 10px;"></label><br>
+        <label>Money per click:<br><input type="number" id="admin-click" style="width: 100%; margin-bottom: 10px;"></label><br>
+        <label>Autoclickers:<br><input type="number" id="admin-autoclicker" style="width: 100%; margin-bottom: 20px;"></label><br>
+
+        <button onclick="applyAdminChanges()" style="padding: 8px 16px; margin: 5px;">✅ Apply</button>
+        <button onclick="resetGame()" style="padding: 8px 16px; margin: 5px;">🗑️ Reset</button>
+        <button onclick="closeAdminPanel()" style="padding: 8px 16px; margin: 5px;">❌ Close</button>
+    </div>
+
 </div>
 </body>
 <script>
@@ -401,7 +428,51 @@
             }
         }
 
-    
+    document.addEventListener("keydown", function (e) {
+        if (e.shiftKey && e.code === "KeyA") {
+            e.preventDefault(); // предотвратить другие действия браузера
+            const pass = prompt("Enter admin password:");
+            if (pass === "ADMIN_Steve_Shuba") {
+                document.getElementById("admin-panel").style.display = "block";
+            } else {
+                alert("Incorrect password!");
+            }
+        }
+    });
+
+    function closeAdminPanel() {
+        document.getElementById("admin-panel").style.display = "none";
+    }
+
+    function applyAdminChanges() {
+        const newScore = parseInt(document.getElementById("admin-score").value);
+        const newClick = parseInt(document.getElementById("admin-click").value);
+        const newAuto = parseInt(document.getElementById("admin-autoclicker").value);
+
+        if (!isNaN(newScore)) score = newScore;
+        if (!isNaN(newClick)) moneyForClick = newClick;
+        if (!isNaN(newAuto)) autoclicker = newAuto;
+
+        updateScoreUI();
+        alert("Changes applied!");
+    }
+
+    function resetGame() {
+        if (confirm("Are you sure you want to reset all progress?")) {
+            score = 0;
+            moneyForClick = 1;
+            autoclicker = 0;
+            localStorage.clear();
+            updateScoreUI();
+            alert("Progress has been reset.");
+        }
+    }
+
+    function updateScoreUI() {
+        document.getElementById("score-text").textContent = "Moneys: " + score;
+        document.getElementById("show-autoclicker").textContent = autoclicker + " money in one second";
+    }
+
 
 </script>
 </html>
