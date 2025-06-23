@@ -61,7 +61,7 @@
 </div>
 <div id="show-score" class="text">
     <p id="score-text" class="info-text">Moneys: 0</p>
-    <p id="show-money-for-click" class="info-text">+1 moneys for click</p>
+    <p id="show-money-for-click" class="info-text">1 coins per click</p>
 </div>
 
 <div id="image-progress">
@@ -174,8 +174,8 @@
 
         let button = document.createElement("button");
         button.textContent = `${nameButton} (+${moneyForClick} money for click  for ${price} moneys)`;
-        button.className = "shop-item"; // Добавляем стили кнопки, чтобы она выглядела как остальные в магазине
-        button.onclick = () => AddMoneyForClickCustom(price, moneyForClick); // Используем стрелочную функцию
+        button.className = "shop-item";
+        button.onclick = () => AddMoneyForClickCustom(price, moneyForClick);
 
         let shop = document.getElementById("shop-content");
         if (shop) {
@@ -187,7 +187,7 @@
 
     function AddMoneyForClickCustom(price, moneyUp) {
         if (score >= price) {
-            moneyForClick += moneyUp; // Добавляем к текущему moneyForClick
+            moneyForClick += moneyUp;
             score -= price;
             updateUI();
         } else {
@@ -279,15 +279,18 @@
             }
 
     }
+    let currentImageIndex = 0; // глобально
 
-    function changeImage(currentImageIndex) {
-            const imgElement = document.getElementById('hamster-img');
-            if (imgElement) {
-                currentImageIndex = currentImageIndex % images.length;
-                imgElement.src = images[currentImageIndex];
-                console.log("Image changed:", images[currentImageIndex]);
-            }
-        }
+    function changeImage(index) {
+        const imgElement = document.getElementById('hamster-img');
+        index = index % images.length;
+
+        if (currentImageIndex === index) return; // уже это изображение, не менять
+
+        imgElement.src = images[index];
+        currentImageIndex = index;
+    }
+
 
     function Test() {
             if (1000 <= score) {
@@ -319,7 +322,7 @@
             setInterval(Autoclicker, 1000);
             setInterval(Test, 1)
             loadGame()
-            setInterval(AutoSave, 1);
+            setInterval(saveGame, 1);
         }
 
     $hamster.click(function (event) {
@@ -385,8 +388,16 @@
 
         // Функция для обновления интерфейса
         function updateUI() {
-            scoreText.textContent = `Moneys: ${score}`;
-            clickPowerText.textContent = `Money per click: ${moneyForClick}`;
+            const scoreEl = document.getElementById("score-text");
+            const moneyPerClickEl = document.getElementById("show-money-for-click");
+
+            if (scoreEl) {
+                scoreEl.textContent = "Moneys: " + score;
+            }
+
+            if (moneyPerClickEl) {
+                moneyPerClickEl.textContent = moneyForClick + " coins per click";
+            }
         }
 
         // Функция для сохранения прогресса
