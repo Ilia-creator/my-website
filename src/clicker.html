@@ -78,11 +78,7 @@
         <button id="code" class="btn" onclick="Code()">Code</button>
         <button id="save-button" onclick="saveGame()">Save Game</button>
         <button id="new-game-button" onclick="newGame()">New Game</button>
-        <button id="music-button">Pause Music</button>
         <button id="help-button" class="btn" onclick="Help()">?</button>
-        <audio id="background-music" loop autoplay>
-            <source src="music/hamsterClicker.mp3" type="audio/mpeg">
-        </audio>
         <p>I am working on this game now(this is beta version)</p>
     </div>
     <div id="shop-modal">
@@ -112,6 +108,11 @@
     const $hamster = $('#hamster-img')
     const scoreText = document.getElementById("score-text");
     const clickPowerText = document.getElementById("click-power");
+    let fir_change = false;
+    let sec_change = false;
+    let thir_change = false;
+    let fourth_change = false;
+    let fith_change = false;
 
 
     function PlayerAutoclickerUpgrade() {
@@ -262,29 +263,85 @@
             }
         }
 
+    const thresholds = [1000, 100000, 1000000, 10000000, 100000000]; // match your images[1..5]
+    let thresholdIndex = 0; // index into `thresholds` for the next goal (0 => target thresholds[0])
+
+    // Call this whenever score changes (click, autoclicker, after loading, after newGame, etc.)
+    function updateProgressBar() {
+        const $bar = $("#progress-bar");
+        if ($bar.length === 0) return;
+
+        // If we've passed all thresholds, show full bar
+        if (thresholdIndex >= thresholds.length) {
+            $bar.css("width", "100%");
+            return;
+        }
+
+        // previous threshold (0 if none)
+        const prev = thresholdIndex > 0 ? thresholds[thresholdIndex - 1] : 0;
+        const next = thresholds[thresholdIndex];
+
+        // avoid division by zero
+        const denom = next - prev || 1;
+        const pct = Math.min(((score - prev) / denom) * 100, 100);
+
+        $bar.css("width", pct + "%");
+    }
+
+
     function Test() {
+
             if (1000 <= score) {
-                changeImage(1);
+                if (fir_change === false){
+                    changeImage(1);
+                    updateProgressBar()
+                    fir_change = true;
+                }
             }
 
             if (100000 <= score) {
-                changeImage(2);
+                if (sec_change === false){
+                    changeImage(2);
+                    updateProgressBar()
+                    sec_change = true;
+                }
             }
 
             if (1000000 <= score) {
-                changeImage(3);
+                if (thir_change === false){
+                    changeImage(3);
+                    updateProgressBar()
+                    thir_change = true;
+                }
             }
 
             if (10000000 <= score) {
-                changeImage(4);
+                if (fourth_change === false){
+                    changeImage(4);
+                    updateProgressBar()
+                    fourth_change = true;
+                }
             }
 
-            if (10000000 <= score) {
-                changeImage(5);
+            if (1000000000000 <= score) {
+                if (fith_change === false){
+                    changeImage(5);
+                    updateProgressBar()
+                    fith_change = true;
+                }
             }
 
-            $("#show-score").text("Moneys: " + score);
-            $("#show-money-for-click").text("+" + moneyForClick + " moneys for click");
+        while (thresholdIndex < thresholds.length && score >= thresholds[thresholdIndex]) {
+            thresholdIndex++;
+            // images[thresholdIndex] will map correctly because images[0] is base
+            changeImage(thresholdIndex);
+        }
+
+        // Update UI and progress bar
+        updateProgressBar();
+        $("#show-score").text("Moneys: " + score);
+        $("#show-money-for-click").text("+" + moneyForClick + " moneys for click");
+
         }
 
 
@@ -292,46 +349,10 @@
             setInterval(Autoclicker, 1000);
             setInterval(Test, 1)
             loadGame()
-            setInterval(AutoSave, 1);
         }
 
-    $hamster.click(function (event) {
 
-            const coin = $('<div class="coin">🪙</div>');
-            $("body").append(coin);
-
-
-            coin.css({
-                position: 'absolute',
-                left: event.pageX + "px",
-                top: event.pageY + "px",
-                pointerEvents: 'none',
-                animation: 'coinFly 1s ease-out forwards',
-            });
-
-
-            setTimeout(() => coin.remove(), 1000);
-        });
-
-        const thresholds = [1000, 100000]; // Пороговые значения монет для смены изображений
-        let currentThreshold = thresholds[0]; // Текущий порог
-
-        function updateProgressBar() {
-            const progressBar = $("#progress-bar");
-
-            // Вычисляем процент заполнения
-            const progress = Math.min((score / currentThreshold) * 100, 100);
-            progressBar.css("width", progress + "%");
-
-            // Если достигли текущего порога, меняем картинку и обновляем порог
-            if (score >= currentThreshold) {
-                changeImage(thresholds.indexOf(currentThreshold) + 1); // Меняем картинку
-                const nextIndex = thresholds.indexOf(currentThreshold) + 1;
-                currentThreshold = thresholds[nextIndex] || currentThreshold + 100000; // Переход к следующему порогу или добавляем фиксированный шаг
-            }
-        }
-
-        function openShop() {
+    function openShop() {
             document.getElementById("shop-modal").style.display = "block"; // Показываем окно
         }
 
@@ -339,21 +360,7 @@
             document.getElementById("shop-modal").style.display = "none"; // Скрываем окно
         }
 
-        const musicButton = document.getElementById("music-button");
-        const backgroundMusic = document.getElementById("background-music");
 
-        // Функция для управления музыкой
-        musicButton.addEventListener("click", () => {
-            if (backgroundMusic.paused) {
-                backgroundMusic.play();
-                musicButton.textContent = "Pause Music";
-                musicButton.classList.remove("off");
-            } else {
-                backgroundMusic.pause();
-                musicButton.textContent = "Play Music";
-                musicButton.classList.add("off");
-            }
-        });
 
 
         // Функция для обновления интерфейса
@@ -393,8 +400,14 @@
         function newGame() {
             if (confirm("Are you sure you want to start a new game? This will erase your current progress.")) {
                 score = 0;
-                moneyForClick = 0;
+                moneyForClick = 1;
                 autoclicker = 0;
+                fir_change = false;
+                sec_change = false;
+                thir_change = false;
+                fourth_change = false;
+                fith_change = false;
+                changeImage(0);
                 localStorage.removeItem("hamsterClickerSave");
                 updateUI();
                 alert("New game started!");
