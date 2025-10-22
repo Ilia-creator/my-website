@@ -2,8 +2,6 @@ html, body {
     margin: 0;
 }
 
-
-
 body {
     font-family: 'Arial', sans-serif;
     background: linear-gradient(135deg, #f9a825, #f57c00);
@@ -198,17 +196,6 @@ body {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-#save-button {
-    left: 20px;
-    background: linear-gradient(90deg, #4CAF50, #2E7D32);
-    color: white;
-}
-
-#new-game-button {
-    left: 160px;
-    background: linear-gradient(90deg, #f44336, #d32f2f);
-    color: white;
-}
 
 #save-button:hover {
     background: linear-gradient(90deg, #66bb6a, #388e3c);
@@ -222,12 +209,6 @@ body {
 
 #save-button:active, #new-game-button:active {
     transform: scale(0.95);
-}
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
 }
 
 #save-button, #new-game-button {
@@ -243,27 +224,6 @@ body {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-#save-button {
-    left: 20px;
-    background: linear-gradient(90deg, #4CAF50, #2E7D32);
-    color: white;
-}
-
-#new-game-button {
-    left: 160px;
-    background: linear-gradient(90deg, #f44336, #d32f2f);
-    color: white;
-}
-
-#save-button:hover {
-    background: linear-gradient(90deg, #66bb6a, #388e3c);
-    transform: scale(1.05);
-}
-
-#new-game-button:hover {
-    background: linear-gradient(90deg, #ef5350, #c62828);
-    transform: scale(1.05);
-}
 
 #save-button:active, #new-game-button:active {
     transform: scale(0.95);
