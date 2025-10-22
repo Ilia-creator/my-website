@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
-    <link rel="stylesheet" href="css/clicker.css">
+    <link rel="stylesheet" href="../static/css/clicker.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <title>Hamster kombat</title>
 
@@ -22,7 +22,7 @@
 </div>
 
 <div id="main" class="text">
-    <img src="images/hamster1.jpg" alt="Hamster" id="hamster-img">
+    <img src="../static/images/hamster1.jpg" alt="Hamster" id="hamster-img">
     <div id="upgrades" class="text">
         <button id="click+1" class="btn" onclick="AddMoneyForClickCustom(10, 1)">+1 money for click(10 moneys)</button>
         <button id="autoclicker" class="btn" onclick="UpgradeAutoclickerCustom(100, 1)">+1 money every second autoclicker(100 moneys)</button>
@@ -34,7 +34,7 @@
         <button id="music-button">Pause Music</button>
         <button id="help-button" class="btn" onclick="Help()">?</button>
         <audio id="background-music" loop autoplay>
-            <source src="music/hamsterClicker.mp3" type="audio/mpeg">
+            <source src="../static/music/hamsterClicker.mp3" type="audio/mpeg">
         </audio>
         <p>I am working on this game now(this is beta version)</p>
     </div>
@@ -60,6 +60,6 @@
 
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script  src="js/clicker-code.js"></script>
+<script  src="../static/js/clicker-code.js"></script>
 </body>
 </html>
