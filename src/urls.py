@@ -8,5 +8,10 @@ urlpatterns = [
     path('programming/', views.programming, name='programming'),
     path('music/', views.music, name='music'),
     path('games/', views.games, name='games'),
+    path('games_to_play/', views.games_to_play, name='games_to_play'),
+    path('hamster_clicker/', views.hamster_clicker, name='hamster_clicker'),
+    path('art/', views.art, name='art'),
+    path('treasure/', views.treasure, name='treasure'),
+    path('error/', views.error_page, name='error_page'),
 ]
 

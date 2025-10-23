@@ -228,19 +228,6 @@ function closeShop() {
     document.getElementById("shop-modal").style.display = "none";
 }
 
-// === MUSIC ===
-const musicButton = document.getElementById("music-button");
-const backgroundMusic = document.getElementById("background-music");
-
-musicButton.addEventListener("click", () => {
-    if (backgroundMusic.paused) {
-        backgroundMusic.play();
-        musicButton.textContent = "Pause Music";
-    } else {
-        backgroundMusic.pause();
-        musicButton.textContent = "Play Music";
-    }
-});
 
 // === HELP ===
 function Help() {

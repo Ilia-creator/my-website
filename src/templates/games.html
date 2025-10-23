@@ -11,7 +11,7 @@
 </div>
 
 <div id="menu">
-    <a href="index.html">⌂<<<</a>
+    <a href="/">⌂<<<</a>
 </div>
 
 <div id="content" class="text">
@@ -52,17 +52,14 @@
 
     <div id="games" class="text">
         <h1> My games:</h1>
-        <a href="treasure.html">Treasure game(link)</a>
-        <p> Sorry now games is creatings.</p>
+        <a href="{% url 'treasure' %}">Treasure game(link)</a>
         <b> Now you can try my new game but this game is bored and with errors and I upgrading this game.</b>
-        <a href="art.html">Art game(my new game)</a>
+        <a href="{% url 'art' %}">Art game(my new game)</a>
         <p>And you can play the game hamster clicker(beta version)</p>
-        <a href="clicker.html">Hamster clicker(beta)</a>
+        <a href="{% url 'hamster_clicker' %}">Hamster clicker(beta)</a>
         <p> New games is coming!</p>
-
     </div>
-    
-    
+
     <p><button id="mainbutton" type="button" onclick="sayGoodbye()">Say goodbye!</button> </p>
 </div>
 

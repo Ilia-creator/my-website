@@ -162,7 +162,7 @@ window.addEventListener("DOMContentLoaded", () => {
             navigator.userAgent
         )
     ) {
-        window.location.href = "https://shubnikov.me/error-page.html";
+        window.location.href = "https://shubnikov.me/error";
     }
 
     console.log("✅ Canvas drawing initialized successfully!");

@@ -17,3 +17,18 @@ def music(request):
 
 def games(request):
     return render(request, 'games.html')
+
+def games_to_play(request):
+    return render(request, 'games-to-play.html')
+
+def hamster_clicker(request):
+    return render(request, 'clicker.html')
+
+def art(request):
+    return render(request, 'art.html')
+
+def treasure(request):
+    return render(request, 'treasure.html')
+
+def error_page(request):
+    return render(request, 'error-page.html')
