@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="../static/css/register.css">
+</head>
+<body>
+    <div class="register-container">
+        <div class="logo">🐹</div>
+        <h2>Register</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create account</button>
+        </form>
+        <a class="login-link" href="{% url 'login' %}">Already have an account? Login</a>
+    </div>
+</body>
+</html>

@@ -1,10 +1,15 @@
 name: ilia-website
 services:
-  nginx:
-    image: nginx:latest
-    container_name: ilia-website
-    restart: unless-stopped
-    expose:
-      - 80
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: my_website_db
+    ports:
+      - "5432:5432"
     volumes:
-      - ./src:/usr/share/nginx/html:ro
+      - website-db:/var/lib/postgresql
+volumes:
+  website-db:

@@ -1,0 +1,105 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: radial-gradient(circle at center, #0d1117 0%, #000000 100%);
+    color: #e6edf3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.register-container {
+    background: rgba(22, 27, 34, 0.9);
+    border: 2px solid #58a6ff;
+    border-radius: 20px;
+    padding: 40px 50px;
+    width: 360px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(88, 166, 255, 0.2);
+    animation: fadeIn 0.5s ease;
+}
+
+.logo {
+    font-size: 60px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px #58a6ff;
+}
+
+h2 {
+    margin: 0 0 25px;
+    color: #58a6ff;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    color: #e6edf3;
+    padding: 12px;
+    font-size: 15px;
+    transition: 0.25s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #58a6ff;
+    box-shadow: 0 0 8px #58a6ff;
+}
+
+button {
+    background-color: #21262d;
+    color: #58a6ff;
+    border: 1px solid #30363d;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+button:hover {
+    background-color: #58a6ff;
+    color: #0d1117;
+    box-shadow: 0 0 15px #58a6ff;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+.login-link {
+    display: block;
+    margin-top: 20px;
+    color: #58a6ff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.login-link:hover {
+    color: #9cd5ff;
+    text-shadow: 0 0 10px #58a6ff;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 400px) {
+    .register-container {
+        width: 90%;
+        padding: 30px;
+    }
+}

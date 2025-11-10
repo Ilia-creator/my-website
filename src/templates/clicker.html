@@ -6,13 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" href="../static/css/clicker.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../static/images/hamster-favicon.ico">
     <title>Hamster kombat</title>
 
 </head>
 <body>
+{% csrf_token %}
 <div id="header">
 <h3 id="header-text">Hamster clicker</h3>
 </div>
+<div class="container" id="top-bar">
+        {% if user.is_authenticated %}
+          <span class="welcome">Hello, {{ user.username }}!</span>
+            <button class="profile-btn" onclick="location.href='/profile/'">Profile</button>
+          <button class="logout-btn" onclick="location.href='/logout/'">Log out</button>
+        {% else %}
+          <button class="login-btn" onclick="location.href='/login/'">Login</button>
+          <button class="register-btn" onclick="location.href='/register/'">Register</button>
+        {% endif %}
+    </div>
 <div id="show-score" class="text">
     <p id="score-text" class="info-text">Moneys: 0</p>
     <p id="show-money-for-click" class="info-text">1 coin per click</p>
@@ -23,7 +35,7 @@
 </div>
 
 <div id="main" class="text">
-    <img src="../static/images/hamster1.jpg" alt="Hamster" id="hamster-img">
+    <img src="{{ hamster.image.url }}" alt="{{ hamster.name }}" id="hamster-img">
     <div id="upgrades" class="text">
         <button id="click+1" class="btn" onclick="AddMoneyForClickCustom(10, 1)">+1 money for click(10 moneys)</button>
         <button id="autoclicker" class="btn" onclick="UpgradeAutoclickerCustom(100, 1)">+1 money every second autoclicker(100 moneys)</button>
@@ -33,6 +45,7 @@
         <button id="save-button" onclick="saveGame()">Save Game</button>
         <button id="new-game-button" onclick="newGame()">New Game</button>
         <button id="help-button" class="btn" onclick="Help()">?</button>
+        <button id="main-menu" class="btn" onclick="location.href='/'">Main menu</button>
         <p>I am working on this game now(this is beta version)</p>
     </div>
     <div id="shop-modal">
@@ -56,5 +69,13 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script  src="../static/js/clicker-code.js"></script>
+<script>
+     const userEmail = "{{ request.user.email }}";
+    const hamsterImages = [
+        {% for hamster in hamsters %}
+            "{{ hamster.image.url }}",
+        {% endfor %}
+    ];
+</script>
 </body>
 </html>
