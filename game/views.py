@@ -4,6 +4,8 @@ import json
 from .models import PlayerProgress
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+import os
+from django.conf import settings
 
 def hamster_clicker_user(request):
     username = request.user.username if request.user.is_authenticated else None
@@ -50,3 +52,13 @@ def new_game(request):
     return JsonResponse({'status': 'reset'})
 
 
+def hamster_images(request):
+    dirpath = os.path.join(settings.MEDIA_ROOT, 'hamsters')
+    images = []
+    if os.path.isdir(dirpath):
+        for fname in sorted(os.listdir(dirpath)):
+            if fname.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
+                # build absolute URL so JS can use it directly
+                rel = settings.MEDIA_URL.rstrip('/') + '/hamsters/' + fname
+                images.append(request.build_absolute_uri(rel))
+    return JsonResponse({'images': images})

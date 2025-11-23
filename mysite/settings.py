@@ -16,17 +16,24 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+# Load environment variables from project .env
+from dotenv import load_dotenv
+load_dotenv(BASE_DIR / '.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pok85_(!12h2xu(@4k(pgp!5bv&q%)=h7ix**1(qd)fe@$j)^g'
+# Use env var when available, otherwise use a non-secret fallback for local dev.
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-local-dev-secret-change-me')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Parse DEBUG to a boolean
+DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ('1', 'true', 'yes')
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS: use env var DJANGO_ALLOWED_HOSTS (comma separated), otherwise default
+allowed = os.getenv('DJANGO_ALLOWED_HOSTS')
+if allowed:
+    ALLOWED_HOSTS = [h.strip() for h in allowed.split(',') if h.strip()]
+else:
+    ALLOWED_HOSTS = ['*'] if DEBUG else []
 
 
 # Application definition
@@ -65,6 +72,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.static',   # added so templates can access static context
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -77,16 +85,19 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Use PostgreSQL if DB env provided, otherwise fall back to sqlite for dev
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'my_website_db',
-        'USER': 'admin',
-        'PASSWORD': 'secret',
-        'HOST': 'localhost',
-        'PORT': '5432'
+        'NAME': os.getenv('DJANGO_DB_NAME'),
+        'USER': os.getenv('DJANGO_DB_USER'),
+        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD'),
+        'HOST': os.getenv('DJANGO_DB_HOST'),
+        'PORT': os.getenv('DJANGO_DB_PORT'),
     }
 }
+
 
 
 # Password validation
@@ -120,10 +131,26 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
+# Static files
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'staticfiles']         # where you keep source static files (css/js/images)         # collectstatic target for production
+STATIC_ROOT = BASE_DIR / 'static_collected'
+# Use WhiteNoise storage in production to serve compressed/hashed files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATIC_URL = 'static/'
+# urls.py (add static serving in development if needed)
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    # your url patterns...
+]
+
+# Only append static() when DEBUG=True or for simple dev servers
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=STATICFILES_DIRS[0])
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

@@ -5,4 +5,5 @@ urlpatterns = [
     path('save/', views.save_progress, name='save_progress'),
     path('load/', views.load_progress, name='load_progress'),
     path('new/', views.new_game, name='new_game'),
+    path('hamster-images/', views.hamster_images, name='hamster_images'),
 ]
