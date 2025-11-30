@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Art</title>
-    <link rel="stylesheet" href="../static/css/art.css">
+    <link rel="stylesheet" href="{% static 'css/art.css' %}">
 </head>
 <body>
 <div class="parent">
@@ -61,6 +62,6 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="../static/js/art.js"></script>
+<script src="{% static 'js/art.js' %}"></script>
 </body>
 </html>

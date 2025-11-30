@@ -211,7 +211,7 @@ ENV/
 # mkdocs documentation
 /site
 
-/static/admin/js/vendor
-/static/admin/css/vendor
+/staticfiles/admin/js/vendor
+/staticfiles/admin/css/vendor
 
 # End of https://www.gitignore.io/api/macos,linux,django,python,pycharm

@@ -1,8 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../static/css/music.css">
-    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <link rel="stylesheet" href="{% static 'css/music.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <meta charset="UTF-8">
     <title>Ilia personal page/music</title>
 </head>
@@ -16,7 +17,7 @@
 <div id="content" class="text">
     <div id="soundtrap" class="text">
         <div id="photo-1">
-            <img src="../static/images/Soundtrap_logo.jpeg">
+            <img src="{% static 'images/Soundtrap_logo.jpeg' %}">
         </div>
         <p> It is Soundtrap logo, This is the site where I create music and </p>
         <p> I recommend you try it (link below with the name Soundtrap). <p/>
@@ -25,9 +26,9 @@
     </div>
     <div id="download-content" class="links">
         <p> Here is music from me that you can download:</p>
-        <a href="../static/music/Братец_яков_в_парке.mp4" download="Братец-яков-в-парке-на-ксилофоне_Ilia.mp4">Download Brother Yakov on the xylophone(click to download),</a>
-        <a href="../static/music/Игра_на_барабанах.mp4" download="Игра-на-барабанах_Ilia.mp4">Download (playing drums)-click to dowload,</a>
-        <a href="../static/music/Братец_Яков_со_словами.mp4" download="Братец-яков-со-словами.mp4">Downoad Brother Jacob with words(russian language),</a>
+        <a href="{% static 'music/Братец_яков_в_парке.mp4' %}" download="Братец-яков-в-парке-на-ксилофоне_Ilia.mp4">Download Brother Yakov on the xylophone(click to download),</a>
+        <a href="{% static 'music/Игра_на_барабанах.mp4' %}" download="Игра-на-барабанах_Ilia.mp4">Download (playing drums)-click to dowload,</a>
+        <a href="{% static 'music/Братец_Яков_со_словами.mp4' %}" download="Братец-яков-со-словами.mp4">Downoad Brother Jacob with words(russian language),</a>
 
     </div>
     <div id="videos" class="text">
@@ -51,6 +52,6 @@
 <div id="return-home">
     <a href="/">⌂<<<<</a>
 </div>
-<script src="../static/js/say-goodbye-hello.js"></script>
+<script src="{% static 'js/say-goodbye-hello.js' %}"></script>
 </body>
 </html>

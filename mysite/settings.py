@@ -72,7 +72,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.template.context_processors.static',   # added so templates can access static context
+                'django.template.context_processors.static',   # added so templates can access staticfiles context
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -132,13 +132,13 @@ USE_TZ = True
 
 
 # Static files
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'staticfiles']         # where you keep source static files (css/js/images)         # collectstatic target for production
+STATIC_URL = '/staticfiles/'
+STATICFILES_DIRS = [BASE_DIR / 'staticfiles']         # where you keep source staticfiles files (css/js/images)         # collectstatic target for production
 STATIC_ROOT = BASE_DIR / 'static_collected'
 # Use WhiteNoise storage in production to serve compressed/hashed files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# urls.py (add static serving in development if needed)
+# urls.py (add staticfiles serving in development if needed)
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -147,7 +147,7 @@ urlpatterns = [
     # your url patterns...
 ]
 
-# Only append static() when DEBUG=True or for simple dev servers
+# Only append staticfiles() when DEBUG=True or for simple dev servers
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=STATICFILES_DIRS[0])
 

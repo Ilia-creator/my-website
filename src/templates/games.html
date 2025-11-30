@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../static/css/games.css">
+    <link rel="stylesheet" href="{% static 'css/games.css' %}">
     <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <title>Ilia personal page/games</title>
 </head>
 <body>
@@ -18,14 +19,14 @@
 <div id="content" class="text">
     <div id="roblox-studio" class="text">
         <div id="photo-1">
-            <img src="../static/images/roblox_studio.jpeg">
+            <img src="{% static 'images/roblox_studio.jpeg' %}">
         </div>
         <p> I do games in roblox studio and you can play my games in roblox and links are down this stroke.</p>
         <a href="https://www.roblox.com/games/77772974691892/Pass-th-simulator-to-get-ROBLOX#!/about">My simulator game</a>
     </div>
     <div id="brawl-stars" class="text">
         <div id="photo-2">
-            <img src="../static/images/brawl-stars-logo.jpg">
+            <img src="{% static 'images/brawl-stars-logo.jpg' %}">
         </div>
         <p> I play brawl stars too and I have videos on my youtube chanel about brawl stars.</p>
         <p> And my id is SteveShuba, and link on my chanel for watch my videos is down this stroke.</p>
@@ -41,7 +42,7 @@
     </div>
     <div id="minecraft" class="text">
         <div id="photo-3" class="text">
-            <img src="../static/images/Minecraft_logo.jpeg">
+            <img src="{% static 'images/Minecraft_logo.jpeg' %}">
         </div>
         <p> And I play Minecraft and I'm good player.</p>
         <p> And to download the launcher link down this stroke.</p>
@@ -64,6 +65,6 @@
 <div id="return-home">
     <a href="/">⌂<<<<</a>
 </div>
-<script src="../static/js/say-goodbye-hello.js"></script>
+<script src="{% static 'js/say-goodbye-hello.js' %}"></script>
 </body>
 </html>

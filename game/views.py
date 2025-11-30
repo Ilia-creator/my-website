@@ -53,12 +53,30 @@ def new_game(request):
 
 
 def hamster_images(request):
+    import re
     dirpath = os.path.join(settings.MEDIA_ROOT, 'hamsters')
     images = []
+    
     if os.path.isdir(dirpath):
-        for fname in sorted(os.listdir(dirpath)):
+        # Get all image files
+        files = []
+        for fname in os.listdir(dirpath):
             if fname.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
-                # build absolute URL so JS can use it directly
-                rel = settings.MEDIA_URL.rstrip('/') + '/hamsters/' + fname
-                images.append(request.build_absolute_uri(rel))
+                files.append(fname)
+        
+        # Sort by number in filename (hamster1, hamster2, etc.)
+        def extract_number(filename):
+            match = re.search(r'hamster(\d+)', filename.lower())
+            if match:
+                return int(match.group(1))
+            # Files without 'hamsterN' pattern go to the end
+            return 999999
+        
+        files.sort(key=extract_number)
+        
+        # Build absolute URLs
+        for fname in files:
+            rel = settings.MEDIA_URL.rstrip('/') + '/hamsters/' + fname
+            images.append(request.build_absolute_uri(rel))
+    
     return JsonResponse({'images': images})
