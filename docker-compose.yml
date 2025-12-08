@@ -1,8 +1,37 @@
 name: ilia-website
 services:
+  django:
+    build:
+      context: .
+    image: website-app
+    restart: unless-stopped
+    container_name: website-app
+    environment:
+      - DJANGO_DB_NAME=my_website_db
+      - DJANGO_DB_USER=admin
+      - DJANGO_DB_PASSWORD=secret
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=5432
+      - DJANGO_DEBUG=False
+      - DJANGO_ALLOWED_HOSTS=localhost
+    expose:
+      - 8000
+    volumes:
+      - website-static:/app/static_collected
+
+  nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    container_name: webserver
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - website-static:/usr/share/nginx/html/website-static:ro
+    ports:
+      - "80:80"
   db:
     image: postgres:latest
-    restart: always
+    restart: unless-stopped
+    container_name: website-db
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secret
@@ -13,3 +42,4 @@ services:
       - website-db:/var/lib/postgresql
 volumes:
   website-db:
+  website-static:

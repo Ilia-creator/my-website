@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -72,7 +73,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.template.context_processors.static',   # added so templates can access staticfiles context
+                'django.template.context_processors.static',   # added so templates can access static context
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -97,8 +98,6 @@ DATABASES = {
         'PORT': os.getenv('DJANGO_DB_PORT'),
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -132,13 +131,13 @@ USE_TZ = True
 
 
 # Static files
-STATIC_URL = '/staticfiles/'
-STATICFILES_DIRS = [BASE_DIR / 'staticfiles']         # where you keep source staticfiles files (css/js/images)         # collectstatic target for production
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']         # where you keep source static files (css/js/images)         # collectstatic target for production
 STATIC_ROOT = BASE_DIR / 'static_collected'
 # Use WhiteNoise storage in production to serve compressed/hashed files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# urls.py (add staticfiles serving in development if needed)
+# urls.py (add static serving in development if needed)
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -147,7 +146,7 @@ urlpatterns = [
     # your url patterns...
 ]
 
-# Only append staticfiles() when DEBUG=True or for simple dev servers
+# Only append static() when DEBUG=True or for simple dev servers
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=STATICFILES_DIRS[0])
 
@@ -166,3 +165,35 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = '/login/'
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "stream": sys.stdout,
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "gunicorn.error": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "gunicorn.access": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
