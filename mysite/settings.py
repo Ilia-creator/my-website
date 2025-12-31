@@ -146,6 +146,12 @@ urlpatterns = [
     # your url patterns...
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    os.getenv('DJANGO_CSRF_TRUSTED_ORIGINS', 'http://localhost').split(',')
+]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Only append static() when DEBUG=True or for simple dev servers
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=STATICFILES_DIRS[0])
