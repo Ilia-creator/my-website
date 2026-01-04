@@ -32,7 +32,7 @@ DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ('1', 'true', 'yes')
 # ALLOWED_HOSTS: use env var DJANGO_ALLOWED_HOSTS (comma separated), otherwise default
 allowed = os.getenv('DJANGO_ALLOWED_HOSTS')
 if allowed:
-    ALLOWED_HOSTS = [h.strip() for h in allowed.split(',') if h.strip()]
+    ALLOWED_HOSTS = [h.strip() for h in allowed.split(';') if h.strip()]
 else:
     ALLOWED_HOSTS = ['*'] if DEBUG else []
 
@@ -147,7 +147,7 @@ urlpatterns = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    os.getenv('DJANGO_CSRF_TRUSTED_ORIGINS', 'http://localhost').split(',')
+    os.getenv('DJANGO_CSRF_TRUSTED_ORIGINS', 'http://localhost').split(';')
 ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
