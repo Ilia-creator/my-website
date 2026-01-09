@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/proflile.css' %}">
+
+</head>
+<body>
+    <div class="profile-card">
+        <div class="crown">👑</div>
+        <div class="avatar">{{ user.username|slice:":1"|upper }}</div>
+        <div class="profile-header">Hello, {{ user.username }}!</div>
+        <div class="email">{{ user.email }}</div>
+
+        <a class="logout-btn" href="{% url 'logout' %}">Log out</a>
+        <a class="back-link" href="/hamster_clicker/">⬅ Back to the game</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/clicker.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <title>Hamster kombat</title>
+
+</head>
+<body>
+{% csrf_token %}
+<div id="header">
+<h3 id="header-text">Hamster clicker</h3>
+</div>
+<div class="container" id="top-bar">
+        {% if user.is_authenticated %}
+          <span class="welcome">Hello, {{ user.username }}!</span>
+            <button class="profile-btn" onclick="location.href='/profile/'">Profile</button>
+          <button class="logout-btn" onclick="location.href='/logout/'">Log out</button>
+        {% else %}
+          <button class="login-btn" onclick="location.href='/login/'">Login</button>
+          <button class="register-btn" onclick="location.href='/register/'">Register</button>
+        {% endif %}
+    </div>
+<div id="show-score" class="text">
+    <p id="score-text" class="info-text">Moneys: 0</p>
+    <p id="show-money-for-click" class="info-text">1 coin per click</p>
+</div>
+
+<div id="image-progress">
+    <div id="progress-bar"></div>
+</div>
+
+<div id="main" class="text">
+    <img src="{{ hamster.image.url }}" alt="{{ hamster.name }}" id="hamster-img">
+    <div id="upgrades" class="text">
+        <button id="click+1" class="btn" onclick="AddMoneyForClickCustom(10, 1)">+1 money for click(10 moneys)</button>
+        <button id="autoclicker" class="btn" onclick="UpgradeAutoclickerCustom(100, 1)">+1 money every second autoclicker(100 moneys)</button>
+        <button id="click+10" class="btn" onclick="AddMoneyForClickCustom(100, 10)">+10 moneys for click(100 moneys)</button>
+        <button id="shop-button" class="btn" onclick="openShop()">Shop</button>
+        <button id="code" class="btn" onclick="Code()">Code</button>
+        <button id="save-button" onclick="saveGame()">Save Game</button>
+        <button id="new-game-button" onclick="newGame()">New Game</button>
+        <button id="help-button" class="btn" onclick="Help()">?</button>
+        <button id="main-menu" class="btn" onclick="location.href='/'">Main menu</button>
+        <p>I am working on this game now(this is beta version)</p>
+    </div>
+    <div id="shop-modal">
+        <div id="shop-content">
+            <h3>Shop</h3>
+            <button class="shop-item" onclick="UpgradeAutoclickerCustom(1000, 10)">+10 money every second autoclicker (1000 moneys)</button>
+            <button class="shop-item" onclick="AddMoneyForClickCustom(1000, 100)">+100 money for click (1000 moneys)</button>
+            <button class="shop-item" onclick="UpgradeAutoclickerCustom(10000, 100)">+100 money every second autoclicker (10000 moneys)</button>
+            <button class="shop-item" onclick="AddMoneyForClickCustom(10000, 1000)">+1000 money for click (10000 moneys)</button>
+            <button class="shop-item" onclick="UpgradeAutoclickerCustom(100000, 1000)">+1000 money every second autoclicker (100000 moneys)</button>
+            <button class="shop-item" onclick="AddMoneyForClickCustom(100000, 10000)">+10000 money for click (100000 moneys)</button>
+            <button class="shop-item" onclick="UpgradeAutoclickerCustom(10000, 100)">+10000 money every second autoclicker (1000000 moneys)</button>
+            <button class="shop-item" onclick="AddMoneyForClickCustom(1000000, 10000)">+10000 money for click (1000000 moneys)</button>
+            <button class="shop-item" onclick="UpgradeAutoclickerCustom(100000, 1000)">+1000 money every second autoclicker (100000 moneys)</button>
+            <button class="shop-item" onclick="PlayerAddMoneyForClick()">Click to do your money for click upgrader</button>
+            <button class="shop-item" onclick="PlayerAutoclickerUpgrade()">Click to do your autoclicker upgrader</button>
+
+            <button id="close-shop" onclick="closeShop()">Close</button>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="{% static 'js/clicker-code.js' %}"></script>
+<script>
+     const userEmail = "{{ request.user.email }}";
+    const hamsterImages = [
+        {% for hamster in hamsters %}
+            "{{ hamster.image.url }}",
+        {% endfor %}
+    ];
+</script>
+</body>
+</html>

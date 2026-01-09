@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Art</title>
+    <link rel="stylesheet" href="{% static 'css/art.css' %}">
+</head>
+<body>
+<div class="parent">
+    <div class="child">
+        <canvas style="border: solid 1px black" id="canvas" height="400" width="400"></canvas>
+    </div>
+
+    <div id="control-panel" class="child">
+        <div class="control">
+            <label for="pixel-width">Pixel width</label>
+            <input id="pixel-width" type="number" value="10" />
+            <button class="button" onclick="Width()">Apply</button>
+            <p id="error-width" class="error-text"></p>
+        </div>
+
+        <div class="control">
+            <label for="pixel-height">Pixel height</label>
+            <input id="pixel-height" type="number" value="10" />
+            <button class="button" onclick="Height()">Apply</button>
+            <p id="error-height"></p>
+        </div>
+
+        <div class="control">
+            <label for="pencil-color">Pixel color</label>
+            <select id="pencil-color">
+                <option value="black">Black</option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+                <option value="yellow">Yellow</option>
+            </select>
+            <button class="button" onclick="setColor()">Apply</button>
+        </div>
+
+        <div class="control">
+            <div>
+                <input id="pencil-circle" name="pencil-shape" type="radio" value="circle" />
+                <label class="shape-switch" for="pencil-circle">Circle</label>
+            </div>
+            <div>
+                <input id="pencil-square" type="radio" name="pencil-shape" value="square" checked />
+                <label class="shape-switch" for="pencil-square">Square</label>
+            </div>
+            <button class="button" onclick="applyShape()">Apply</button>
+        </div>
+
+        <div class="control">
+            <button class="button" onclick="Clear()">Clear</button>
+        </div>
+
+        <div class="control">
+            <button class="button" onclick="Save()">Save</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="{% static 'js/art.js' %}"></script>
+</body>
+</html>

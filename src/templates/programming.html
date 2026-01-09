@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/programming.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <meta charset="UTF-8">
+    <title>Ilia personal page/programming</title>
+</head>
+<body>
+<div id="header">
+    Programming
+</div>
+<div id="menu">
+    <a href="/">⌂<<<</a>
+</div>
+<div class="text">
+    <div id="photo-1" >
+        <a href="https://github.com/Ilia-creator/my-website"><img src="{% static 'images/PyCharm_Icon.png' %}" alt="Pycharm icon."></a>
+    </div>
+    <p>I program in Python and this is the Pycharm icon.</p>
+    <p>My dad also programmer he's coding in Java and JavaScript.</p>
+    <p>I also make websites and learn from books.</p>
+    <p>And my dad also assist me in my programming way.</p>
+    <p>I made a calculator in Python and programmed an encryption program in Minecraft.</p>
+    <div id="photo-2">
+        <a href="https://github.com/Ilia-creator/my-website"><img src="{% static 'images/WebStorm-icon.png' %}"></a>
+    </div>
+    <p>And this is the WebStorm icon.</p>
+</div>
+<div id="code" class="text">
+    <div id="photo-3">
+       <a href="{% static 'images/code.png' %}"><img src="{% static 'images/code.png' %}" alt="Code"></a>
+    </div>
+    <p>And this is the code this page.</p>
+    <p>You can click to open image in new tab.</p>
+    <p><button class="button" type="button" onclick="sayGoodbye()">Say goodbye!</button></p>
+</div>
+<div id="return-home">
+    <a href="/">⌂<<<</a>
+</div>
+
+<script src="{% static 'js/say-goodbye-hello.js' %}"></script>
+</body>
+</html>

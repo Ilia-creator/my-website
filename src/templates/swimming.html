@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/swimming.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <meta charset="UTF-8">
+    <title>Ilia personal page/swimming</title>
+</head>
+<body>
+<div id="header">
+    Swimming
+</div>
+<div id="menu">
+    <a href="/">⌂<<<</a>
+</div>
+<div id="my-club" class="text">
+    <div id="photo-1">
+       <a href="{% static 'images/swimming.jpg' %}"> <img src="{% static 'images/swimming.jpg' %}" alt="Tournament"> </a>
+    </div>
+<p>This is me on the aquaway tournament and I win two 1st places.</p>
+<div id="photo-2">
+    <a href="{% static 'images/aquaway-logo.png' %}"> <img src="{% static 'images/aquaway-logo.png' %}" alt="Logo"> </a>
+</div>
+<p>And this is aquaway logo.</p>
+<p>During training, we swim a lot of meters.</p>
+<p>But sometimes we play water polo, and we like it.</p>
+<p>We still go to competitions and my medals are shown below.</p>
+</div>
+<div id="My medals" class="text">
+    <div id="photo-3">
+        <a href="{% static 'images/My_swimming_medals.jpg' %}"> <img src="{% static 'images/My_swimming_medals.jpg' %}" alt="My medals"></a>
+    </div>
+    <p>This is all my swimming medals.</p>
+    <p><button class="button" type="button" onclick="sayGoodbye()">Say goodbye!</button></p>
+</div>
+<div id="return-home">
+    <a href="/">⌂<<<</a>
+</div>
+</body>
+<script src="{% static 'js/say-goodbye-hello.js' %}"></script>
+</html>

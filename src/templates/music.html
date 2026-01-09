@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/music.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <meta charset="UTF-8">
+    <title>Ilia personal page/music</title>
+</head>
+<body>
+<div id="header">
+    Music
+</div>
+<div id="menu">
+    <a href="/">⌂<<<</a>
+</div>
+<div id="content" class="text">
+    <div id="soundtrap" class="text">
+        <div id="photo-1">
+            <img src="{% static 'images/Soundtrap_logo.jpeg' %}">
+        </div>
+        <p> It is Soundtrap logo, This is the site where I create music and </p>
+        <p> I recommend you try it (link below with the name Soundtrap). <p/>
+        <a href="https://www.soundtrap.com/ru/musicmakers">Soundtrap</a>
+
+    </div>
+    <div id="videos" class="text">
+        <p> And you can see there are videos here:</p>
+        <p> Brother Yakov on the xylophone:</p>
+        <iframe width="1280" height="720" src="https://www.youtube.com/embed/HZz9JbtvoSU" title="Братец яков игра на ксилофоне в парке."
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <p> Playing drums:</p>
+        <iframe width="1280" height="720" src="https://www.youtube.com/embed/YfalKUN7B8w" title="Игра на барабанах в парке."
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <p> Brother Jacob with words:</p>
+        <iframe width="1280" height="720" src="https://www.youtube.com/embed/2cCdingMt2Y" title="Братец Яков (со словами)."
+                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <p><button id="mainbutton" type="button" onclick="sayGoodbye()">Say goodbye!</button> </p>
+    </div>
+
+</div>
+<div id="return-home">
+    <a href="/">⌂<<<<</a>
+</div>
+<script src="{% static 'js/say-goodbye-hello.js' %}"></script>
+</body>
+</html>

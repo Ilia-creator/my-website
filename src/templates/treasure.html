@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <title>Treasure</title>
+</head>
+<body>
+<h1>Found the treasure!</h1>
+<img id="map" width="400" height="400" src="{% static 'images/treasure.png.png' %}">
+
+<p id="distance"></p>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="{% static 'js/treasure-code.js' %}"></script>
+</body>
+</html>

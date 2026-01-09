@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/games.css' %}">
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <title>Ilia personal page/games</title>
+</head>
+<body>
+<div id="header">
+    Games
+</div>
+
+<div id="menu">
+    <a href="/">⌂<<<</a>
+</div>
+
+<div id="content" class="text">
+    <div id="roblox-studio" class="text">
+        <div id="photo-1">
+            <img src="{% static 'images/roblox_studio.jpeg' %}">
+        </div>
+        <p> I do games in roblox studio and you can play my games in roblox and links are down this stroke.</p>
+        <a href="https://www.roblox.com/games/77772974691892/Pass-th-simulator-to-get-ROBLOX#!/about">My simulator game</a>
+    </div>
+    <div id="brawl-stars" class="text">
+        <div id="photo-2">
+            <img src="{% static 'images/brawl-stars-logo.jpg' %}">
+        </div>
+        <p> I play brawl stars too and I have videos on my youtube chanel about brawl stars.</p>
+        <p> And my id is SteveShuba, and link on my chanel for watch my videos is down this stroke.</p>
+        <a href="https://www.youtube.com/@Steve_Shuba">My youtube chanel(link)</a>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/p-az6QcGTCw?si=aQApRiEAcoebi17j"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture;
+                web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+
+        </iframe>
+
+
+    </div>
+    <div id="minecraft" class="text">
+        <div id="photo-3" class="text">
+            <img src="{% static 'images/Minecraft_logo.jpeg' %}">
+        </div>
+        <p> And I play Minecraft and I'm good player.</p>
+        <p> And to download the launcher link down this stroke.</p>
+        <a href="https://www.minecraft.net/ru-ru/download">Minecraft launcher(for a windows)</a>
+    </div>
+
+    <div id="games" class="text">
+        <h1> My games:</h1>
+        <a href="{% url 'treasure' %}">Treasure game(link)</a>
+        <b> Now you can try my new game but this game is bored and with errors and I upgrading this game.</b>
+        <a href="{% url 'art' %}">Art game(my new game)</a>
+        <p>And you can play the game hamster clicker(beta version)</p>
+        <a href="{% url 'hamster_clicker' %}">Hamster clicker(beta)</a>
+        <p> New games is coming!</p>
+    </div>
+
+    <p><button id="mainbutton" type="button" onclick="sayGoodbye()">Say goodbye!</button> </p>
+</div>
+
+<div id="return-home">
+    <a href="/">⌂<<<<</a>
+</div>
+<script src="{% static 'js/say-goodbye-hello.js' %}"></script>
+</body>
+</html>
