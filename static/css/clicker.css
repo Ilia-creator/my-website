@@ -119,7 +119,7 @@ button:active {
 
 #shop-modal {
     display: none;
-    position: fixed;
+    position:  absolute;
     inset: 0;
     background: rgba(13,17,23,0.9);
     z-index: 10;
