@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block thanks %}
+ 	<!-- Thank you -->
+ 	  	<section>
+ 			{% if name %}
+ 	  		<div class="container">
+ 	  		<CENTER style = 'margin-top: 35%; margin-bottom: 35%;'>
+ 	  		<h1> {{ name }}, thank you for your request!</h1>
+ 	  		{% if package %}<p>Product: {{ package.pc_title }}</p>{% endif %}
+ 	  		 <p>We will contact you shortly via {{ contact_method|default:"Telegram or WhatsApp" }}.</p>
+ 	  		 </CENTER>
+ 			</div>
+ 			{% else %}
+ 			<div class="container">
+ 	  			<CENTER style = 'margin-top: 35%; margin-bottom: 35%;'><h1>Thank you!</h1></CENTER>
+ 	  		</div>
+ 			{% endif %}
+ 	   </section>
+ 	   <!-- Thank you -->
+{% endblock %}

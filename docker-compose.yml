@@ -6,18 +6,17 @@ services:
     image: website-app
     restart: unless-stopped
     container_name: website-app
+    env_file:
+      - .env
     environment:
-      - DJANGO_DB_NAME=my_website_db
-      - DJANGO_DB_USER=admin
-      - DJANGO_DB_PASSWORD=secret
       - DJANGO_DB_HOST=db
-      - DJANGO_DB_PORT=5432
-      - DJANGO_DEBUG=False
-      - DJANGO_ALLOWED_HOSTS=localhost
     expose:
       - 8000
     volumes:
       - website-static:/app/static_collected
+      - website-media:/app/media
+    depends_on:
+      - db
 
   nginx:
     image: nginx:latest
@@ -26,8 +25,12 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - website-static:/usr/share/nginx/html/website-static:ro
+      - website-media:/usr/share/nginx/html/website-media:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     ports:
       - "80:80"
+      - "443:443"
+
   db:
     image: postgres:latest
     restart: unless-stopped
@@ -36,10 +39,10 @@ services:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: secret
       POSTGRES_DB: my_website_db
-    ports:
-      - "5432:5432"
     volumes:
-      - website-db:/var/lib/postgresql
+      - website-db:/var/lib/postgresql/data
+
 volumes:
   website-db:
   website-static:
+  website-media:

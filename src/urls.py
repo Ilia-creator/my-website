@@ -22,6 +22,12 @@ urlpatterns = [
     path('profile/', views_users.profile_view, name='profile'),
     path('hamster_clicker/', include('hamsters.urls')),
     path('game/', include('game.urls')),
+    path('play-learn/', views.play_learn, name='play_learn'),
+    path('shop/', views.shop, name='shop'),
+    path('shop/profile/', views.shop_profile, name='shop_profile'),
+    path('shop/login/', views.shop_login, name='shop_login'),
+    path('shop/register/', views.shop_register, name='shop_register'),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -1,0 +1,166 @@
+{% load static %}
+
+	<section>
+	 <div class="container">
+				   <h1 class="text-3">PRODUCT PACKAGES</h1>
+	   <div class="row justify-content-center">
+	   {% comment %} Iterate over price_cards and render a card for each {% endcomment %}
+	   {% for card in price_cards %}
+		 <div class="col-12 col-sm-6 col-md-4 mb-4">
+		   <div class="card product_card h-100 shadow-sm" style="cursor: pointer;" data-toggle="modal" data-target="#priceModal{{ card.id }}" onclick="initGallery({{ card.id }})">
+			 {% if card.pc_image %}
+			   <img src="{{ card.pc_image.url }}" class="card-img-top" alt="{{ card.pc_title }}">
+			 {% else %}
+			   <img src="{% static 'images/Shop-logo.png' %}" class="card-img-top" alt="placeholder">
+			 {% endif %}
+			 <div class="card-body d-flex flex-column">
+			   <h5 class="card-title">{{ card.pc_title }}</h5>
+			   <p class="card-text text-secondary">{{ card.pc_description }}</p>
+			 		   <div class="mt-auto">
+			 		   <h3 class="text-primary">{{ card.pc_value }} €</h3>
+			 		   <a href="#" class="btn btn-outline-primary btn-block" onclick="orderNow(event, {{ card.id }})">Order</a>
+			 		   </div>
+			 </div>
+		   </div>
+		 </div>
+
+		 <!-- Modal for price card gallery -->
+		 <div class="modal fade" id="priceModal{{ card.id }}" tabindex="-1" role="dialog" aria-labelledby="priceModalLabel{{ card.id }}" aria-hidden="true">
+		   <div class="modal-dialog modal-lg" role="document">
+			 <div class="modal-content">
+			   <div class="modal-header">
+				 <h5 class="modal-title" id="priceModalLabel{{ card.id }}">{{ card.pc_title }}</h5>
+				 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				   <span aria-hidden="true">&times;</span>
+				 </button>
+			   </div>
+			   <div class="modal-body">
+				 <div id="gallery{{ card.id }}" class="carousel slide" data-ride="carousel">
+				   <div class="carousel-inner">
+					 {% if card.images.all %}
+					   {% for img in card.images.all %}
+						 <div class="carousel-item {% if forloop.first %}active{% endif %}">
+						   <img src="{{ img.image.url }}" class="d-block w-100" alt="Image {{ forloop.counter }}" style="max-height: 500px; object-fit: cover;">
+						 </div>
+					   {% endfor %}
+					 {% elif card.pc_image %}
+					   <div class="carousel-item active">
+						 <img src="{{ card.pc_image.url }}" class="d-block w-100" alt="{{ card.pc_title }}" style="max-height: 500px; object-fit: cover;">
+					   </div>
+					 {% else %}
+					   <div class="carousel-item active">
+						 <img src="{% static 'images/Shop-logo.png' %}" class="d-block w-100" alt="placeholder" style="max-height: 500px; object-fit: cover;">
+					   </div>
+					 {% endif %}
+				   </div>
+
+				   <!-- Navigation arrows (show only if multiple images) -->
+				   {% if card.images.count > 1 or card.pc_image %}
+					 <a class="carousel-control-prev" href="#gallery{{ card.id }}" role="button" data-slide="prev">
+					   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					   <span class="sr-only">Previous</span>
+					 </a>
+					 <a class="carousel-control-next" href="#gallery{{ card.id }}" role="button" data-slide="next">
+					   <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					   <span class="sr-only">Next</span>
+					 </a>
+				   {% endif %}
+				 </div>
+
+				 <div class="mt-4" id="priceModalInfo{{ card.id }}">
+				   <h6>{{ card.pc_title }}</h6>
+				   <p class="text-muted">{{ card.pc_description }}</p>
+				   <h4 class="text-primary">{{ card.pc_value }} €</h4>
+				 </div>
+
+				 <!-- Order form, hidden until the "Order" button is pressed -->
+				 <div class="mt-4 pt-3" id="orderForm{{ card.id }}" style="display:none; border-top: 1px solid #e5e5e5;">
+				 <h6>Request this product</h6>
+				 {% if user.is_authenticated %}
+				 <form action="{% url 'thanks_page' %}" method="POST">
+				 {% csrf_token %}
+				 <input type="hidden" name="package_id" value="{{ card.id }}">
+				 <div class="form-group">
+				 <label>Name</label>
+				   <input type="text" name="name" class="form-control" value="{{ user.username }}" required>
+				 </div>
+				 <div class="form-group">
+				 <label>Phone</label>
+				   <input type="text" name="phone" class="form-control" value="{{ user.phone }}" required>
+				 </div>
+				 <div class="form-group">
+				   <label>How should we contact you?</label>
+				   <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons">
+				     <label class="btn btn-outline-primary active flex-fill">
+				       <input type="radio" name="contact_method" value="telegram" checked> Telegram
+				     </label>
+				     <label class="btn btn-outline-primary flex-fill">
+				       <input type="radio" name="contact_method" value="whatsapp"> WhatsApp
+				     </label>
+				   </div>
+				 </div>
+				 <button type="submit" class="btn btn-success btn-block">Submit request</button>
+				   </form>
+				   {% else %}
+				   <p class="text-muted">Please <a href="{% url 'shop_login' %}?next=/shop/">sign in</a> or <a href="{% url 'shop_register' %}?next=/shop/">create account</a> to place an order — your phone will be filled in automatically next time.</p>
+				   {% endif %}
+				 </div>
+			   </div>
+						<div class="modal-footer" id="priceModalFooter{{ card.id }}">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<a href="#" class="btn btn-primary" onclick="showOrderForm(event, {{ card.id }})">Order</a>
+						</div>
+			 </div>
+		   </div>
+		 </div>
+
+	   {% empty %}
+		 <div class="col-12">
+ 		   <p class="text-muted">No service packages have been added yet. Please add them via the admin.</p>
+		 </div>
+	   {% endfor %}
+	   </div>
+	 </div>
+   </section>
+
+<script>
+// Initialize carousel for price modal on open
+function initGallery(cardId) {
+    var galleryId = '#gallery' + cardId;
+    $(galleryId).carousel('cycle');
+}
+
+// Reveal the order form right inside the already-open modal (no closing, no scrolling away)
+function showOrderForm(event, cardId) {
+    if (event) { event.preventDefault(); }
+
+    var form = document.getElementById('orderForm' + cardId);
+    if (form) {
+        form.style.display = 'block';
+    }
+
+    // hide the footer's own Order button once the form is shown, Submit button takes over
+    var footer = document.getElementById('priceModalFooter' + cardId);
+    if (footer) {
+        footer.style.display = 'none';
+    }
+
+    var modalBody = form ? form.closest('.modal-body') : null;
+    if (modalBody) {
+        modalBody.scrollTop = modalBody.scrollHeight;
+    }
+}
+
+// "Order" button on the card itself: open the modal, then reveal the form once it's shown
+function orderNow(event, cardId) {
+    if (event) { event.preventDefault(); event.stopPropagation(); }
+
+    initGallery(cardId);
+    var modalSelector = '#priceModal' + cardId;
+
+    $(modalSelector).one('shown.bs.modal', function () {
+        showOrderForm(null, cardId);
+    });
+    $(modalSelector).modal('show');
+}
+</script>

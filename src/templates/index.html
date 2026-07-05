@@ -11,6 +11,9 @@
 	<body>
 		<div id="header" class="text">Ilia personal page</div>
 		<div id="menu" class="text">
+            <div id="shop-menu" class="menu-item menu-item--shop">
+                <a href="{% url 'shop' %}">Shop</a>
+            </div>
 			<div id="football" class="menu-item">
 				<a href="{% url 'football' %}">Football</a>
 			</div>
@@ -31,25 +34,26 @@
             </div>
 
 		</div>
+
 		<div id="content" class="text">
 			<div id="topbar">
 				<img src="{% static 'images/Ilia.png' %}" alt="avatar">
 				<div class="topbar-text">
-					<p class="topbar-text"> Hello, my name is Ilia! Welcome to my site!</p>
+					<p class="topbar-text">Hello, my name is Ilia! Welcome to my site!</p>
 				</div>
 			</div>
+
 			<div id="mainsection" class="text">
-				<p class="text"> I love programming, I usually write in Python and JavaScript and I like it.</p>
-				<p class="text"> I also have a younger brother, Lev, and we play together.</p>
-				<p class="text"> I also play football and swimming.</p>
-				<p class="text" > I also have a YouTube chanel.</p>
-				<a id="youtube-url" href="https://www.youtube.com/@Steve_Shuba"> My youtube chanel(link)</a>
-				<p class="text"> Please subscribe! </p>
-				<p>
-					<button id="mainbutton" class="button" type="button" onclick="sayHello()">Say hello!</button>
-				</p>
+				<p class="text">I love programming, I usually write in Python and JavaScript and I like it.</p>
+				<p class="text">I also have a younger brother, Lev, and we play together.</p>
+				<p class="text">I also play football and swimming.</p>
+				<p class="text">I also have a YouTube channel.</p>
+				<a id="youtube-url" href="https://www.youtube.com/@Steve_Shuba">My YouTube channel (link)</a>
+				<p class="text">Please subscribe!</p>
+				<hr style="margin: 20px 0; border-color: #eee;">
+				<p class="text">I also have a <strong>3D print shop</strong> — figures small, large, or made to order.</p>
+				<a href="{% url 'shop' %}" class="shop-section-btn">🛍️ Go to the shop →</a>
 			</div>
 		</div>
-		<script src="{% static 'js/say-goodbye-hello.js' %}"></script>
 	</body>
 </html>

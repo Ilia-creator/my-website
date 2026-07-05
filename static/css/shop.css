@@ -1,0 +1,375 @@
+/*Heder*/
+.logo-top {
+  width: 100px;
+  height: 40px;
+  float: left;
+  margin: 0px 0px 5px 80px;
+}
+
+.phone-number {
+  width: 200px;
+  height: 40px;
+  float: right;
+  margin: 20px 10px 5px 20px;
+}
+
+.whatsapp-number {
+  width: 35px;
+  height: 35px;
+  float: right;
+  margin: 15px 30px 5px 20px;
+  background: url('../images/wa-image-color.png') no-repeat center top / cover;
+  transition: 0.5s ease-in-out;
+}
+.telegram-number {
+  width: 35px;
+  height: 35px;
+  float: right;
+  margin: 15px 30px 5px 20px;
+  background: url('../images/tg-image-color.png') no-repeat center top / cover;
+  transition: 0.5s ease-in-out;
+}
+
+.slaider_h {
+	height: 60px;
+	width: 50%;
+	margin: 30px 0px 10px 0px;
+	padding-top: 20px;
+	background-color: rgba(10, 77, 125, 0.5);
+	text-align: center;
+}
+
+.slaider_p {
+	height: 100%;
+	width: 80%;
+	float: right;
+	margin: 0px 0px 30px 0px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	background-color: rgba(10, 77, 125, 0.5);
+	text-align: center;
+}
+
+.text-3 {
+  color: rgb(10, 77, 125);
+  /*font-family: arial;*/
+  font-size: 2em;
+  text-align: center;
+  padding-top: 7%;
+  padding-bottom: 7%;
+}	
+
+.product_card {
+	margin: 10px;
+}
+
+.logo-center img,
+.logo-top img {
+  border-radius: 50%;
+}
+.product_card .card-img-top{
+  height: 180px;
+  object-fit: cover;
+}
+.product_card .card-title{
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.product_card .card-text{
+  min-height: 48px;
+}
+.product_card .btn{
+  border-radius: 30px;
+}
+
+.table_one {
+	font-size: 1.4em;
+}
+
+.class_form {
+  /*color: #fff;*/
+  /*font-size: 2em;*/
+  text-align: center;
+  padding-bottom: 7%;
+}
+
+/* Navbar improvements */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+/* Center Logo */
+.logo-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0;
+}
+
+.navbar .navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+/* Contacts Left */
+.nav-contacts-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-right: auto;
+  min-width: 200px;
+  order: -1;
+}
+
+/* Navigation right side user menu */
+.user-nav-right {
+  display: flex;
+  align-items: center !important;
+  margin-left: 0 !important;
+  margin-right: 0;
+}
+
+.navbar .nav-link {
+  color: #0a4d7d !important;
+  margin: 0 10px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 8px 12px !important;
+  border-radius: 6px;
+}
+
+.navbar .nav-link:hover {
+  color: #fff !important;
+  background-color: #3fe0ff;
+}
+
+/* Contacts top */
+.nav-contacts-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-right: auto;
+  min-width: 200px;
+}
+
+.phone-number {
+  white-space: nowrap;
+  min-width: 180px;
+}
+
+.phone-number h5 {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* User Avatar Styles */
+.user-menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px !important;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  margin: 0 !important;
+}
+
+.user-menu-link:hover {
+  background-color: #f0f0f0;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3fe0ff, #00aaff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  color: white;
+  box-shadow: 0 2px 6px rgba(63, 224, 255, 0.3);
+  min-width: 40px;
+  min-height: 40px;
+  flex-shrink: 0;
+}
+
+.user-name-text {
+  color: #0a4d7d;
+  font-weight: 600;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 200px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  transition: all 0.3s ease;
+  color: #0a4d7d;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+  color: #3fe0ff;
+  padding-left: 20px;
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #ffe0e0;
+  color: #d32f2f;
+}
+
+.dropdown-divider {
+  margin: 8px 0;
+}
+
+/* Auth Buttons */
+.btn-register,
+.btn-login {
+  border-radius: 20px;
+  padding: 8px 20px !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-register {
+  color: #0a4d7d !important;
+  border: 2px solid #0a4d7d;
+  background-color: transparent;
+}
+
+.btn-register:hover {
+  background-color: #0a4d7d;
+  color: white !important;
+}
+
+.btn-login {
+  color: white !important;
+  background: linear-gradient(135deg, #3fe0ff, #00aaff);
+  border: none;
+}
+
+.btn-login:hover {
+  background: linear-gradient(135deg, #00aaff, #0088dd);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(63, 224, 255, 0.3);
+}
+
+/* Contacts */
+.nav-contacts {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.phone-number {
+  white-space: nowrap;
+  min-width: 180px;
+}
+
+@media (max-width: 1200px) {
+  .logo-center {
+    position: static;
+    transform: none;
+    order: -1;
+    margin-bottom: 10px;
+  }
+
+  .nav-contacts-left {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 991px) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  .logo-center {
+    order: 1;
+    position: static;
+    transform: none;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .nav-contacts-left {
+    order: 2;
+    width: 100%;
+    margin-right: 0;
+    margin-top: 10px;
+    justify-content: flex-start;
+  }
+
+  .user-nav-right {
+    order: 3;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .user-name-text {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+
+  .nav-contacts-left {
+    gap: 10px;
+  }
+
+  .phone-number {
+    min-width: auto;
+  }
+
+  .phone-number h5 {
+    font-size: 0.85rem;
+  }
+
+  .navbar .nav-link {
+    margin: 5px;
+  }
+
+  .user-nav-right {
+    width: 100%;
+  }
+}

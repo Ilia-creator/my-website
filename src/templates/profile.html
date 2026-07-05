@@ -13,6 +13,7 @@
         <div class="avatar">{{ user.username|slice:":1"|upper }}</div>
         <div class="profile-header">Hello, {{ user.username }}!</div>
         <div class="email">{{ user.email }}</div>
+        <div class="phone">{{ user.phone|default:"No phone added" }}</div>
 
         <a class="logout-btn" href="{% url 'logout' %}">Log out</a>
         <a class="back-link" href="/hamster_clicker/">⬅ Back to the game</a>

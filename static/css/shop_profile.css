@@ -1,0 +1,82 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #fdf6ec, #f1e7d8);
+    color: #3a2e23;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.shop-profile-card {
+    background: #ffffff;
+    border: 1px solid #e8dcc8;
+    border-radius: 18px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(58, 46, 35, 0.15);
+    width: 340px;
+}
+
+.shop-profile-badge {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.shop-profile-avatar {
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    margin: 0 auto 15px;
+    background-color: #d2a679;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 50%;
+}
+
+.shop-profile-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #5a4632;
+}
+
+.shop-profile-email,
+.shop-profile-phone {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    color: #8a7560;
+}
+
+.shop-profile-logout,
+.shop-profile-back {
+    display: block;
+    text-decoration: none;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.shop-profile-logout {
+    background-color: #d2a679;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+.shop-profile-logout:hover {
+    background-color: #c08e5a;
+}
+
+.shop-profile-back {
+    color: #5a4632;
+    border: 1px solid #e8dcc8;
+}
+
+.shop-profile-back:hover {
+    background-color: #fdf6ec;
+    text-decoration: none;
+}

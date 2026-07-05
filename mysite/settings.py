@@ -27,14 +27,11 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-local-dev-secret-change-me')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Parse DEBUG to a boolean
-DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ('1', 'true', 'yes')
+DEBUG = os.getenv('DJANGO_DEBUG')
 
 # ALLOWED_HOSTS: use env var DJANGO_ALLOWED_HOSTS (comma separated), otherwise default
-allowed = os.getenv('DJANGO_ALLOWED_HOSTS')
-if allowed:
-    ALLOWED_HOSTS = [h.strip() for h in allowed.split(';') if h.strip()]
-else:
-    ALLOWED_HOSTS = ['*'] if DEBUG else []
+allowed = os.getenv('DJANGO_ALLOWED_HOSTS', '')
+ALLOWED_HOSTS = [h.strip() for h in allowed.split(';') if h.strip()]
 
 
 # Application definition
@@ -50,6 +47,11 @@ INSTALLED_APPS = [
     'users',
     'hamsters',
     'game',
+    'playLearn',
+    'cms',
+    'price',
+    'crm',
+    'telebot'
 ]
 
 MIDDLEWARE = [
@@ -136,7 +138,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']         # where you keep source static files (css/js/images)         # collectstatic target for production
 STATIC_ROOT = BASE_DIR / 'static_collected'
 # Use WhiteNoise storage in production to serve compressed/hashed files
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # urls.py (add static serving in development if needed)
 from django.urls import path, include
@@ -148,7 +150,7 @@ urlpatterns = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    os.getenv('DJANGO_CSRF_TRUSTED_ORIGINS', 'http://localhost').split(';')
+    o.strip() for o in os.getenv('DJANGO_CSRF_TRUSTED_ORIGINS', 'http://localhost:8000').split(';') if o.strip()
 ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

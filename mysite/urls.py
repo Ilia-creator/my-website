@@ -20,6 +20,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', include('src.urls')),
     path('game/', include('game.urls')),
+    path('', include('crm.urls')),
+    path('', include('telebot.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PlayLearn</title>
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            font-family: Arial;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+
+        .section {
+            margin-top: 40px;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 12px;
+            width: 250px;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🎮 PlayLearn</h1>
+
+    <!-- PROJECTS -->
+    <div class="section">
+        <h2>🚀 Projects</h2>
+        <div class="cards">
+            {% for p in projects %}
+                <div class="card">
+                    <h3>{{ p.name }}</h3>
+                    <p>Author: {{ p.user.name }}</p>
+                </div>
+            {% empty %}
+                <p>No projects</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- TASKS -->
+    <div class="section">
+        <h2>🧠 Learning (Tasks)</h2>
+        <div class="cards">
+            {% for t in tasks %}
+                <div class="card">
+                    <h3>{{ t.name }}</h3>
+                    <p>{{ t.description|truncatewords:10 }}</p>
+                </div>
+            {% empty %}
+                <p>No tasks</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- CODE / GAMES -->
+    <div class="section">
+        <h2>💻 Games / Code</h2>
+        <div class="cards">
+            {% for c in codes %}
+                <div class="card">
+                    <h3>Code by {{ c.user.name }}</h3>
+                    <p>{{ c.text|truncatewords:8 }}</p>
+                </div>
+            {% empty %}
+                <p>No code</p>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

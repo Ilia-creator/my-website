@@ -1,7 +1,15 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, LoginForm
+
+
+def _safe_next(request, default='profile'):
+    next_url = request.POST.get('next') or request.GET.get('next')
+    if next_url and next_url.startswith('/'):
+        return next_url
+    return default
+
 
 def register_view(request):
     if request.method == 'POST':
@@ -9,7 +17,7 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('profile')
+            return redirect(_safe_next(request))
     else:
         form = RegisterForm()
     return render(request, 'register.html', {'form': form})
@@ -21,7 +29,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('/hamster_clicker/')
+            return redirect(_safe_next(request))
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
@@ -34,6 +42,6 @@ def profile_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
 # Create your views here.

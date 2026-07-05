@@ -120,6 +120,71 @@ html, body {
 }
 
 
+/* Shop menu item highlight */
+.menu-item--shop a {
+    background: linear-gradient(90deg, #d2a679, #c08e5a);
+    color: #fff !important;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.menu-item--shop a:hover {
+    background: linear-gradient(90deg, #c08e5a, #a97840) !important;
+    color: #fff !important;
+}
+
+/* Shop section on index */
+#shop-section {
+    margin-top: 36px;
+    background: linear-gradient(135deg, #fff8f0, #fdecd8);
+    border: 1px solid #e8dcc8;
+    border-radius: 20px;
+    padding: 36px 40px;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(58,46,35,0.1);
+}
+
+.shop-section-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.shop-section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #5a4632;
+    margin-bottom: 12px;
+}
+
+.shop-section-desc {
+    font-size: 1rem;
+    color: #8a7560;
+    line-height: 1.6;
+    margin-bottom: 22px;
+}
+
+.shop-section-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background: linear-gradient(90deg, #d2a679, #c08e5a);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.shop-section-btn:hover {
+    background: linear-gradient(90deg, #c08e5a, #a97840);
+    transform: translateY(-3px);
+    color: #fff;
+    text-decoration: none;
+}
+
 @media (max-width: 768px) {
     #header {
         font-size: 36px;

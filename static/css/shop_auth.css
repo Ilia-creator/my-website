@@ -1,0 +1,133 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #fdf6ec, #f1e7d8);
+    color: #3a2e23;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.shop-auth-card {
+    background: #ffffff;
+    border: 1px solid #e8dcc8;
+    border-radius: 18px;
+    padding: 40px 44px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(58, 46, 35, 0.15);
+    width: 360px;
+}
+
+.shop-auth-badge {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+
+.shop-auth-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #5a4632;
+    margin-bottom: 24px;
+}
+
+/* Form fields */
+.shop-auth-card p {
+    text-align: left;
+    margin-bottom: 14px;
+}
+
+.shop-auth-card label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #8a7560;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.shop-auth-card input[type="text"],
+.shop-auth-card input[type="password"],
+.shop-auth-card input[type="email"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e8dcc8;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    color: #3a2e23;
+    background: #fdf6ec;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+.shop-auth-card input:focus {
+    border-color: #d2a679;
+    background: #fff;
+}
+
+/* Help text & errors */
+.shop-auth-card .helptext,
+.shop-auth-card ul.errorlist {
+    font-size: 0.78rem;
+    color: #b07a50;
+    margin-top: 4px;
+    text-align: left;
+    list-style: none;
+    padding: 0;
+}
+
+.shop-auth-card ul.errorlist li {
+    color: #c0392b;
+}
+
+/* Submit button */
+.shop-auth-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #d2a679;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background-color 0.2s;
+}
+
+.shop-auth-btn:hover {
+    background-color: #c08e5a;
+}
+
+/* Bottom link */
+.shop-auth-link {
+    display: block;
+    margin-top: 18px;
+    font-size: 0.88rem;
+    color: #8a7560;
+    text-decoration: none;
+}
+
+.shop-auth-link a {
+    color: #c08e5a;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.shop-auth-link a:hover {
+    text-decoration: underline;
+}
+
+.shop-auth-back {
+    display: block;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #b0a090;
+    text-decoration: none;
+}
+
+.shop-auth-back:hover {
+    color: #5a4632;
+}
