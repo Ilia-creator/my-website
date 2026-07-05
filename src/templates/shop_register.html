@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create account — Shop</title>
+    <link rel="stylesheet" href="{% static 'css/shop_auth.css' %}">
+</head>
+<body>
+    <div class="shop-auth-card">
+        <div class="shop-auth-badge">🛍️</div>
+        <div class="shop-auth-title">Create account</div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ request.GET.next|default:'/shop/' }}">
+            {{ form.as_p }}
+            <button type="submit" class="shop-auth-btn">Create account</button>
+        </form>
+
+        <span class="shop-auth-link">
+            Already have an account? <a href="{% url 'shop_login' %}?next={{ request.GET.next|default:'/shop/' }}">Sign in</a>
+        </span>
+        <a class="shop-auth-back" href="{% url 'shop' %}">← Back to the shop</a>
+    </div>
+</body>
+</html>

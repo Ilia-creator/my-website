@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop Profile</title>
+    <link rel="stylesheet" href="{% static 'css/shop_profile.css' %}">
+</head>
+<body>
+    <div class="shop-profile-card">
+        <div class="shop-profile-badge">🛍️</div>
+        <div class="shop-profile-avatar">{{ user.username|slice:":1"|upper }}</div>
+        <div class="shop-profile-header">Hello, {{ user.username }}!</div>
+        <div class="shop-profile-email">{{ user.email }}</div>
+        <div class="shop-profile-phone">{{ user.phone|default:"No phone added" }}</div>
+
+        <a class="shop-profile-back" href="{% url 'shop' %}">⬅ Back to the shop</a>
+        <a class="shop-profile-logout" href="{% url 'logout' %}">Log out</a>
+    </div>
+</body>
+</html>
