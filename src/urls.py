@@ -1,9 +1,7 @@
 from django.urls import path, include
 from . import views
-from django.conf import settings
-from django.conf.urls.static import static
-
 from users import views_users
+
 urlpatterns = [
     path('', views.home, name='home'),
     path('football/', views.football, name='football'),
@@ -27,7 +25,4 @@ urlpatterns = [
     path('shop/profile/', views.shop_profile, name='shop_profile'),
     path('shop/login/', views.shop_login, name='shop_login'),
     path('shop/register/', views.shop_register, name='shop_register'),
-
-
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+]

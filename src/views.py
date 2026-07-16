@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
 from cms.models import CmsSlider
 from price.models import PriceCard, PriceTable
 from crm.forms import OrderForm
+from users.forms import LoginForm, RegisterForm
+
 
 def home(request):
     return render(request, 'index.html')
@@ -40,9 +43,9 @@ def error_page(request):
 def play_learn(request):
     return render(request, 'playLearn.html')
 
+
 def shop(request):
     slider_list = CmsSlider.objects.all()
-    # Get all price cards and the price table; templates will iterate over them
     price_cards = PriceCard.objects.all()
     price_table = PriceTable.objects.all()
 
@@ -60,7 +63,7 @@ def shop(request):
     return render(request, 'shop.html', context)
 
 
-@login_required
+@login_required(login_url='/shop/login/')
 def shop_profile(request):
     return render(request, 'shop_profile.html', {'user': request.user})
 
@@ -69,15 +72,12 @@ def shop_login(request):
     if request.user.is_authenticated:
         return redirect('shop')
     if request.method == 'POST':
-        from users.forms import LoginForm
         form = LoginForm(data=request.POST)
         if form.is_valid():
-            from django.contrib.auth import login
             login(request, form.get_user())
             next_url = request.POST.get('next') or '/shop/'
             return redirect(next_url)
     else:
-        from users.forms import LoginForm
         form = LoginForm()
     return render(request, 'shop_login.html', {'form': form})
 
@@ -86,15 +86,12 @@ def shop_register(request):
     if request.user.is_authenticated:
         return redirect('shop')
     if request.method == 'POST':
-        from users.forms import RegisterForm
         form = RegisterForm(request.POST)
         if form.is_valid():
-            from django.contrib.auth import login
             user = form.save()
             login(request, user)
             next_url = request.POST.get('next') or '/shop/'
             return redirect(next_url)
     else:
-        from users.forms import RegisterForm
         form = RegisterForm()
     return render(request, 'shop_register.html', {'form': form})

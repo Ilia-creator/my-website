@@ -10,19 +10,23 @@
 
 	<div class="carousel-inner">
 	  {% for slide in slider_list %}
-		<div class="carousel-item {% if forloop.first %}active{% endif %} {{ slide.cms_css|default:'' }}">
-		  <img src="{{ slide.cms_img.url }}" class="d-block w-100" alt="{{ slide.cms_title|default:'slide' }}">
-		  <div class="carousel-caption d-none d-md-block">
-			<h5 class="slaider_h">{{ slide.cms_title }}</h5>
-			<p class="slaider_p">{{ slide.cms_text }}</p>
-		  </div>
-		</div>
+	  <div class="carousel-item {% if forloop.first %}active{% endif %} {{ slide.cms_css|default:'' }}">
+	  {% if slide.cms_img %}
+	  <img src="{{ slide.cms_img.url }}" class="d-block w-100" alt="{{ slide.cms_title|default:'slide' }}">
+	   {% else %}
+	   <img src="{% static 'images/Shop-logo.png' %}" class="d-block w-100" alt="{{ slide.cms_title|default:'slide' }}">
+	  {% endif %}
+	    <div class="carousel-caption d-none d-md-block">
+	  <h5 class="slaider_h">{{ slide.cms_title }}</h5>
+	   <p class="slaider_p">{{ slide.cms_text }}</p>
+	  </div>
+	  </div>
 	  {% empty %}
-		<div class="carousel-item active">
-		  <img src="{% static 'images/Shop-logo.png' %}" class="d-block w-100" alt="placeholder">
-		  <div class="carousel-caption d-none d-md-block">
-			<h5 class="slaider_h">No slides</h5>
-			<p class="slaider_p">Add slides in the admin.</p>
+	  <div class="carousel-item active">
+	  <img src="{% static 'images/Shop-logo.png' %}" class="d-block w-100" alt="placeholder">
+	    <div class="carousel-caption d-none d-md-block">
+	  <h5 class="slaider_h">Welcome to the shop</h5>
+			<p class="slaider_p">Browse our products below.</p>
 		  </div>
 		</div>
 	  {% endfor %}
