@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     'users',
     'hamsters',
     'game',
-    'playLearn',
     'cms',
     'price',
     'crm',
