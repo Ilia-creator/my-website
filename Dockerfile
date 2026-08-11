@@ -18,7 +18,7 @@ COPY . .
 # Provide env vars required for collectstatic
 #ENV DJANGO_DEBUG=False
 
-RUN python manage.py collectstatic --no-input --settings=mysite.settings_build
+RUN python manage.py collectstatic --no-input
 
 # Stage 2: Production stage
 FROM python:3.13-slim
