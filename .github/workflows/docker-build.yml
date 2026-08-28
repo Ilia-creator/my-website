@@ -23,3 +23,6 @@ jobs:
 
       - name: Push Docker image
         run: docker push steveshuba/my-site-app:latest
+
+      - name: Trigger Portainer redeploy
+        run: curl -X POST "${{ secrets.PORTAINER_WEBHOOK_URL }}"
