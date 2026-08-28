@@ -5,6 +5,12 @@ import sys
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 from dotenv import load_dotenv
+# .env.local — локальные оверрайды для запуска вне Docker (не в git, не в образе —
+# см. .gitignore/.dockerignore). /.dockerenv существует только внутри контейнера,
+# поэтому там .env.local игнорируется, даже если примонтирован и даже если
+# DJANGO_DB_HOST/DEBUG уже выставлены окружением (например, IDE-плагином EnvFile).
+if not os.path.exists('/.dockerenv'):
+    load_dotenv(BASE_DIR / '.env.local', override=True)
 load_dotenv(BASE_DIR / '.env')
 
 # ── Security ──────────────────────────────────────────────────────────────────
