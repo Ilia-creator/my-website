@@ -6,7 +6,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
 .shop-profile-card {
@@ -16,7 +18,15 @@ body {
     padding: 40px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(58, 46, 35, 0.15);
-    width: 340px;
+    width: 100%;
+    max-width: 340px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 420px) {
+    .shop-profile-card {
+        padding: 28px 20px;
+    }
 }
 
 .shop-profile-badge {

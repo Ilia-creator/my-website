@@ -3,12 +3,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Create account — Shop</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/shop_auth.css' %}">
 </head>
 <body>
     <div class="shop-auth-card">
-        <div class="shop-auth-badge">🛍️</div>
+        <div class="shop-auth-badge"><i class="fas fa-store"></i></div>
         <div class="shop-auth-title">Create account</div>
 
         <form method="POST">
@@ -21,7 +24,7 @@
         <span class="shop-auth-link">
             Already have an account? <a href="{% url 'shop_login' %}?next={{ request.GET.next|default:'/shop/' }}">Sign in</a>
         </span>
-        <a class="shop-auth-back" href="{% url 'shop' %}">← Back to the shop</a>
+        <a class="shop-auth-back" href="{% url 'shop' %}"><i class="fas fa-arrow-left"></i> Back to the shop</a>
     </div>
 </body>
 </html>

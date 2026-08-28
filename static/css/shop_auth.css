@@ -7,6 +7,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 16px;
+    box-sizing: border-box;
 }
 
 .shop-auth-card {
@@ -16,7 +18,15 @@ body {
     padding: 40px 44px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(58, 46, 35, 0.15);
-    width: 360px;
+    width: 100%;
+    max-width: 360px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 420px) {
+    .shop-auth-card {
+        padding: 28px 20px;
+    }
 }
 
 .shop-auth-badge {
