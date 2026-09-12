@@ -195,10 +195,6 @@ celerybeat-schedule
 # dotenv
 .env
 
-# Telethon userbot session (live auth key for a personal Telegram account — never commit)
-*.session
-*.session-journal
-
 # virtualenv
 .venv
 venv/
@@ -216,7 +212,5 @@ ENV/
 
 **/vendor
 nginx.conf
-.env.local
-
 
 # End of https://www.gitignore.io/api/macos,linux,django,python,pycharm

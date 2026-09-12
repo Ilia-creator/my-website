@@ -1,10 +1,5 @@
 from django.contrib import admin
-from .models import TeleSettings, UserBotSettings
+from .models import TeleSettings
 
 # Register your models here.
 admin.site.register(TeleSettings)
-
-
-@admin.register(UserBotSettings)
-class UserBotSettingsAdmin(admin.ModelAdmin):
-    readonly_fields = ('session_string',)
