@@ -33,6 +33,7 @@ class Command(BaseCommand):
             await event.message.reply('Hello from Telethon UserBot!')
 
         self.stdout.write(self.style.SUCCESS('App Started'))
+        self.stdout.write(f'Phone: {settings_row.phone}')
         try:
             app.start(phone=settings_row.phone, password=settings_row.two_step_password)
 
