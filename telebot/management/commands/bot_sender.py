@@ -7,14 +7,10 @@ from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from pyrogram import Client
-from dotenv import load_dotenv
-
-# Загружаем переменные из файла .env
-load_dotenv()
 
 logger = logging.getLogger(__name__)
 
-# --- КОНФИГУРАЦИЯ ИЗ ENV ---
+# Считываем напрямую из окружения Portainer
 BOT_TOKEN = os.getenv("TELEGRAM_USERBOT_TOKEN")
 API_ID = os.getenv("TELEGRAM_USERBOT_API_ID")
 API_HASH = os.getenv("TELEGRAM_USERBOT_API_HASH")
@@ -34,7 +30,6 @@ class MailingStates(StatesGroup):
     waiting_for_interval = State()
 
 
-# Инициализируем компоненты только если токены есть
 if BOT_TOKEN and API_ID and API_HASH:
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
@@ -107,7 +102,7 @@ async def process_message(message: Message, state: FSMContext):
 
 @dp.message(F.text == "⏱ Интервал")
 async def set_interval(message: Message, state: FSMContext):
-    await message.answer("Введите interval в секундах:")
+    await message.answer("Введите интервал в секундах:")
     await state.set_state(MailingStates.waiting_for_interval)
 
 
@@ -136,7 +131,7 @@ async def start_mailing(message: Message):
     global user_client, MAILING_RUNNING
 
     if not user_client or not user_client.is_connected:
-        await message.answer("❌ Юзербот не активен. Убедитесь, что сессия user_shared_session.session на месте.")
+        await message.answer("❌ Юзербот не активен. Убедитесь, что сессия настроена.")
         return
     if not USER_CONFIG["targets"]:
         await message.answer("❌ Список получателей пуст.")
@@ -173,7 +168,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if not BOT_TOKEN or not API_ID or not API_HASH:
-            self.stdout.write(self.style.ERROR("Критические переменные отсутствуют в .env. Запуск невозможен!"))
+            self.stdout.write(self.style.ERROR(
+                "❌ Критические переменные (TELEGRAM_BOT_TOKEN, TELEGRAM_API_ID, TELEGRAM_API_HASH) отсутствуют в окружении Portainer!"))
             return
 
         self.stdout.write(self.style.SUCCESS("Инициализация асинхронного запуска..."))
