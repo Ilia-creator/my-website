@@ -1,42 +1,31 @@
-import os
-
-from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
-from dotenv import load_dotenv
 from telethon import TelegramClient, events
+from telethon.sessions import StringSession
 
-SESSION_DIR = os.path.join(settings.BASE_DIR, 'telebot', 'userbot_session')
-SESSION_PATH = os.path.join(SESSION_DIR, 'Telethon_UserBot')
-ENV_PATH = os.path.join(settings.BASE_DIR, 'telebot', '.env.userbot')
+from telebot.models import UserBotSettings
 
 
 class Command(BaseCommand):
     help = (
         "Run the Telethon userbot (personal Telegram account autoresponder). "
-        "Credentials come from TELEGRAM_USERBOT_API_ID / TELEGRAM_USERBOT_API_HASH / "
-        "TELEGRAM_USERBOT_PHONE / TELEGRAM_USERBOT_2FA_PASSWORD, either in "
-        "telebot/.env.userbot (local run) or in the container's environment via "
-        "env_file: .env (Docker/Portainer). Stop with Ctrl+C."
+        "Credentials and session are stored in the UserBotSettings row (pk=1), "
+        "editable in Django admin. Stop with Ctrl+C."
     )
 
     def handle(self, *args, **options):
-        load_dotenv(ENV_PATH)
-
-        api_id = os.getenv('TELEGRAM_USERBOT_API_ID')
-        api_hash = os.getenv('TELEGRAM_USERBOT_API_HASH')
-        phone = os.getenv('TELEGRAM_USERBOT_PHONE')
-        password = os.getenv('TELEGRAM_USERBOT_2FA_PASSWORD')
-
-        if not api_id or not api_hash or not phone:
+        try:
+            settings_row = UserBotSettings.objects.get(pk=1)
+        except UserBotSettings.DoesNotExist:
             raise CommandError(
-                'TELEGRAM_USERBOT_API_ID / TELEGRAM_USERBOT_API_HASH / TELEGRAM_USERBOT_PHONE '
-                'must be set — in telebot/.env.userbot locally, or as container env vars '
-                '(e.g. in the .env file used by env_file: .env in docker-compose.yml) in Docker'
+                'UserBotSettings (pk=1) not found. Fill it in the admin first '
+                '(api_id, api_hash, phone, two_step_password).'
             )
 
-        os.makedirs(SESSION_DIR, exist_ok=True)
-
-        app = TelegramClient(SESSION_PATH, api_id, api_hash)
+        app = TelegramClient(
+            StringSession(settings_row.session_string or ''),
+            settings_row.api_id,
+            settings_row.api_hash,
+        )
 
         @app.on(events.NewMessage())
         async def on_message(event: events.NewMessage.Event):
@@ -45,7 +34,11 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS('App Started'))
         try:
-            app.start(phone=phone, password=password)
+            app.start(phone=settings_row.phone, password=settings_row.two_step_password)
+
+            settings_row.session_string = app.session.save()
+            settings_row.save(update_fields=['session_string'])
+
             app.run_until_disconnected()
         except KeyboardInterrupt:
             self.stdout.write(self.style.WARNING('App Finished'))

@@ -15,7 +15,6 @@ services:
     volumes:
       - website-static:/app/static_collected
       - website-media:/app/media
-      - website-userbot-session:/app/telebot/userbot_session
     depends_on:
       - db
 
@@ -47,4 +46,3 @@ volumes:
   website-db:
   website-static:
   website-media:
-  website-userbot-session:

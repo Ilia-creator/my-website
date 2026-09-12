@@ -198,7 +198,6 @@ celerybeat-schedule
 # Telethon userbot session (live auth key for a personal Telegram account — never commit)
 *.session
 *.session-journal
-.env.userbot
 
 # virtualenv
 .venv
