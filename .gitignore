@@ -213,4 +213,8 @@ ENV/
 **/vendor
 nginx.conf
 
+*.session
+*.session-journal
+
+
 # End of https://www.gitignore.io/api/macos,linux,django,python,pycharm
