@@ -2,7 +2,7 @@ import os
 import asyncio
 from django.core.management.base import BaseCommand
 from pyrogram import Client
-from dotenv import load_workbook, load_dotenv  # Импортируем загрузчик
+from dotenv import load_dotenv  # Импортируем загрузчик
 
 # Загружаем переменные из файла .env
 load_dotenv()
