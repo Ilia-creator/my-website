@@ -1,3 +1,4 @@
+import os
 import asyncio
 import logging
 from django.core.management.base import BaseCommand
@@ -6,14 +7,17 @@ from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from pyrogram import Client
+from dotenv import load_dotenv
 
-# Настройка логирования в консоль сервера
+# Загружаем переменные из файла .env
+load_dotenv()
+
 logger = logging.getLogger(__name__)
 
-# --- КОНФИГУРАЦИЯ ---
-BOT_TOKEN = "ВАШ_ТОКЕН_ОФИЦИАЛЬНОГО_БОТА"
-API_ID = 1234567
-API_HASH = "ВАШ_API_HASH"
+# --- КОНФИГУРАЦИЯ ИЗ ENV ---
+BOT_TOKEN = os.getenv("TELEGRAM_USERBOT_TOKEN")
+API_ID = os.getenv("TELEGRAM_USERBOT_API_ID")
+API_HASH = os.getenv("TELEGRAM_USERBOT_API_HASH")
 
 USER_CONFIG = {
     "targets": [],
@@ -30,9 +34,13 @@ class MailingStates(StatesGroup):
     waiting_for_interval = State()
 
 
-bot = Bot(token=BOT_TOKEN)
-dp = Dispatcher()
-user_client = Client("user_shared_session", api_id=API_ID, api_hash=API_HASH)
+# Инициализируем компоненты только если токены есть
+if BOT_TOKEN and API_ID and API_HASH:
+    bot = Bot(token=BOT_TOKEN)
+    dp = Dispatcher()
+    user_client = Client("user_shared_session", api_id=int(API_ID), api_hash=API_HASH)
+else:
+    bot, dp, user_client = None, None, None
 
 
 def get_main_menu():
@@ -99,7 +107,7 @@ async def process_message(message: Message, state: FSMContext):
 
 @dp.message(F.text == "⏱ Интервал")
 async def set_interval(message: Message, state: FSMContext):
-    await message.answer("Введите интервал в секундах:")
+    await message.answer("Введите interval в секундах:")
     await state.set_state(MailingStates.waiting_for_interval)
 
 
@@ -120,7 +128,7 @@ async def stop_mailing(message: Message):
         await message.answer("Рассылка и так не работает.")
         return
     MAILING_RUNNING = False
-    await message.answer("🛑 Сигнал на остановку отправлен. Текущий круг завершится или прервется.")
+    await message.answer("🛑 Сигнал на остановку отправлен. Текущий круг завершится.")
 
 
 @dp.message(F.text == "🚀 ЗАПУСТИТЬ")
@@ -128,8 +136,7 @@ async def start_mailing(message: Message):
     global user_client, MAILING_RUNNING
 
     if not user_client or not user_client.is_connected:
-        await message.answer(
-            "❌ Юзербот не активен. Убедитесь, что сессия user_shared_session.session лежит в корне проекта.")
+        await message.answer("❌ Юзербот не активен. Убедитесь, что сессия user_shared_session.session на месте.")
         return
     if not USER_CONFIG["targets"]:
         await message.answer("❌ Список получателей пуст.")
@@ -161,11 +168,14 @@ async def start_mailing(message: Message):
         await asyncio.sleep(10)
 
 
-# --- ГЛАВНЫЙ КЛАСС КОМАНДЫ DJANGO ---
 class Command(BaseCommand):
     help = "Запуск Telegram бота рассылки внутри Django"
 
     def handle(self, *args, **options):
+        if not BOT_TOKEN or not API_ID or not API_HASH:
+            self.stdout.write(self.style.ERROR("Критические переменные отсутствуют в .env. Запуск невозможен!"))
+            return
+
         self.stdout.write(self.style.SUCCESS("Инициализация асинхронного запуска..."))
         try:
             asyncio.run(self.run_bot())
@@ -173,7 +183,5 @@ class Command(BaseCommand):
             self.stdout.write(self.style.WARNING("Бот остановлен пользователем."))
 
     async def run_bot(self):
-        # Запускаем Pyrogram юзербота
         await user_client.start()
-        # Запускаем Aiogram панель управления
         await dp.start_polling(bot)
