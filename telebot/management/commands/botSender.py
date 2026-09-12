@@ -5,7 +5,8 @@ from django.core.management.base import BaseCommand, CommandError
 from dotenv import load_dotenv
 from telethon import TelegramClient, events
 
-SESSION_PATH = os.path.join(settings.BASE_DIR, 'telebot', 'Telethon_UserBot')
+SESSION_DIR = os.path.join(settings.BASE_DIR, 'telebot', 'userbot_session')
+SESSION_PATH = os.path.join(SESSION_DIR, 'Telethon_UserBot')
 ENV_PATH = os.path.join(settings.BASE_DIR, 'telebot', '.env.userbot')
 
 
@@ -13,8 +14,9 @@ class Command(BaseCommand):
     help = (
         "Run the Telethon userbot (personal Telegram account autoresponder). "
         "Credentials come from TELEGRAM_USERBOT_API_ID / TELEGRAM_USERBOT_API_HASH / "
-        "TELEGRAM_USERBOT_PHONE / TELEGRAM_USERBOT_2FA_PASSWORD in telebot/.env.userbot "
-        "(local only, never committed — see .gitignore). Stop with Ctrl+C."
+        "TELEGRAM_USERBOT_PHONE / TELEGRAM_USERBOT_2FA_PASSWORD, either in "
+        "telebot/.env.userbot (local run) or in the container's environment via "
+        "env_file: .env (Docker/Portainer). Stop with Ctrl+C."
     )
 
     def handle(self, *args, **options):
@@ -28,8 +30,11 @@ class Command(BaseCommand):
         if not api_id or not api_hash or not phone:
             raise CommandError(
                 'TELEGRAM_USERBOT_API_ID / TELEGRAM_USERBOT_API_HASH / TELEGRAM_USERBOT_PHONE '
-                'must be set in telebot/.env.userbot'
+                'must be set — in telebot/.env.userbot locally, or as container env vars '
+                '(e.g. in the .env file used by env_file: .env in docker-compose.yml) in Docker'
             )
+
+        os.makedirs(SESSION_DIR, exist_ok=True)
 
         app = TelegramClient(SESSION_PATH, api_id, api_hash)
 
